@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { siteSettings } from "@/lib/content";
+import { getSiteSettings } from "@/lib/data";
 import ContactForm from "@/components/ContactForm";
 
 export const metadata: Metadata = {
@@ -7,7 +7,9 @@ export const metadata: Metadata = {
   description: "פרטי יצירת קשר עם דניאלה הדר, עובדת סוציאלית למיצוי זכויות רפואיות.",
 };
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const siteSettings = await getSiteSettings();
+
   return (
     <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
       <h1 className="text-3xl font-bold text-ink">יצירת קשר</h1>
@@ -16,12 +18,16 @@ export default function ContactPage() {
       </p>
 
       <div className="mt-6 flex flex-col gap-1 text-ink/90">
-        <a href={`tel:${siteSettings.phone}`} className="font-semibold hover:text-smoked-blue" dir="ltr">
-          {siteSettings.phone}
-        </a>
-        <a href={`mailto:${siteSettings.email}`} className="font-semibold hover:text-smoked-blue" dir="ltr">
-          {siteSettings.email}
-        </a>
+        {siteSettings.phone && (
+          <a href={`tel:${siteSettings.phone}`} className="font-semibold hover:text-smoked-blue" dir="ltr">
+            {siteSettings.phone}
+          </a>
+        )}
+        {siteSettings.email && (
+          <a href={`mailto:${siteSettings.email}`} className="font-semibold hover:text-smoked-blue" dir="ltr">
+            {siteSettings.email}
+          </a>
+        )}
       </div>
 
       <div className="mt-10 rounded-card border border-sage/40 bg-white/60 p-6">

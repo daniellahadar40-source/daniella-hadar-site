@@ -1,22 +1,28 @@
 import Link from "next/link";
-import { siteSettings } from "@/lib/content";
+import { getSiteSettings } from "@/lib/data";
 
-export default function Footer() {
+export default async function Footer() {
+  const siteSettings = await getSiteSettings();
+
   return (
     <footer className="border-t border-sage/40 bg-champagne/40">
       <div className="mx-auto max-w-6xl px-4 py-10 text-sm text-ink sm:px-6">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
           <div>
-            <p className="font-bold text-smoked-blue">{siteSettings.businessName}</p>
+            <p className="font-bold text-smoked-blue">{siteSettings.siteName}</p>
             <p>{siteSettings.tagline}</p>
           </div>
           <div className="flex flex-col gap-1">
-            <a href={`tel:${siteSettings.phone}`} className="hover:text-smoked-blue" dir="ltr">
-              {siteSettings.phone}
-            </a>
-            <a href={`mailto:${siteSettings.email}`} className="hover:text-smoked-blue" dir="ltr">
-              {siteSettings.email}
-            </a>
+            {siteSettings.phone && (
+              <a href={`tel:${siteSettings.phone}`} className="hover:text-smoked-blue" dir="ltr">
+                {siteSettings.phone}
+              </a>
+            )}
+            {siteSettings.email && (
+              <a href={`mailto:${siteSettings.email}`} className="hover:text-smoked-blue" dir="ltr">
+                {siteSettings.email}
+              </a>
+            )}
           </div>
           <nav aria-label="קישורים משפטיים" className="flex flex-col gap-1">
             <Link href="/accessibility-statement" className="hover:text-smoked-blue">

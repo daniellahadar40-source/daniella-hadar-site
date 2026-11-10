@@ -1,10 +1,12 @@
 import type { MetadataRoute } from "next";
-import { courses } from "@/lib/content";
+import { getCourses, getArticles } from "@/lib/data";
 
 // יש לעדכן לדומיין הסופי לאחר רכישתו (ראו סעיף 13 בתוכנית).
 const baseUrl = "https://www.daniella-hadar.co.il";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const [courses, articles] = await Promise.all([getCourses(), getArticles()]);
+
   const staticRoutes = [
     "",
     "/courses",
@@ -19,10 +21,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(),
   }));
 
-  const courseRoutes = courses.map((course) => ({
-    url: `${baseUrl}/courses/${course.slug}`,
-    lastModified: new Date(),
+  const courseRoutes = courses
+    .filter((course) => course.status !== "hidden")
+    .map((course) => ({
+      url: `${baseUrl}/courses/${course.slug}`,
+      lastModified: new Date(),
+    }));
+
+  const articleRoutes = articles.map((article) => ({
+    url: `${baseUrl}/knowledge/${article.slug}`,
+    lastModified: article.updatedAt ?? article.publishedAt ?? new Date(),
   }));
 
-  return [...staticRoutes, ...courseRoutes];
+  return [...staticRoutes, ...courseRoutes, ...articleRoutes];
 }

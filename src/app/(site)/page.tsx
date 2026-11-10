@@ -1,8 +1,10 @@
 import Link from "next/link";
-import { courses } from "@/lib/content";
+import { getCourses, getSiteSettings } from "@/lib/data";
+import CmsImage from "@/components/CmsImage";
 
-export default function HomePage() {
-  const mainCourse = courses[0];
+export default async function HomePage() {
+  const [courses, siteSettings] = await Promise.all([getCourses(), getSiteSettings()]);
+  const mainCourse = courses.find((course) => course.status !== "hidden");
 
   return (
     <>
@@ -34,9 +36,12 @@ export default function HomePage() {
               </Link>
             </div>
           </div>
-          <div className="aspect-[4/5] rounded-card bg-sage/30" aria-hidden="true">
-            {/* מקום לתמונת Hero אמיתית של דניאלה — תתווסף לאחר קבלת התמונות (ראו סעיף 13 בתוכנית) */}
-          </div>
+          <CmsImage
+            image={siteSettings.heroImage}
+            alt="דניאלה הדר"
+            className="aspect-[4/5] rounded-card bg-sage/30"
+            priority
+          />
         </div>
       </section>
 
