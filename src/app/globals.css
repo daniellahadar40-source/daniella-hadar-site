@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-heebo: "Heebo", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #f8f6f1;
+  color: #293a43;
+}
+
+.skip-link {
+  position: absolute;
+  right: -999px;
+  top: 0;
+  z-index: 100;
+  background: #36566a;
+  color: #f8f6f1;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0 0 0.5rem 0.5rem;
+}
+
+.skip-link:focus {
+  right: 0;
+}
