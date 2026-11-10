@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Button from "@/components/ui/Button";
 
 export default function ContactForm() {
   const [status, setStatus] = useState<string>("");
@@ -53,12 +54,7 @@ export default function ContactForm() {
       </div>
       {/* שדה honeypot נגד ספאם — מוסתר ממשתמשים אנושיים */}
       <input type="text" name="company" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
-      <button
-        type="submit"
-        className="rounded-card bg-smoked-blue px-6 py-3 font-semibold text-cream transition hover:opacity-90"
-      >
-        שליחה
-      </button>
+      <Button type="submit">שליחה</Button>
       <p id="form-status" role="status" aria-live="polite" className="text-sm text-ink/70">
         {status}
       </p>

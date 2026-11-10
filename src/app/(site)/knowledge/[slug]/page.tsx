@@ -39,10 +39,10 @@ export default async function ArticlePage({
       <CmsImage
         image={article.coverImage}
         alt={article.title}
-        className="mb-8 aspect-[16/9] rounded-card bg-sage/30"
+        className="mb-8 aspect-[16/9] rounded-card"
         priority
       />
-      <h1 className="text-3xl font-bold text-ink">{article.title}</h1>
+      <h1 className="text-display font-bold text-ink">{article.title}</h1>
       <p className="mt-2 text-sm text-ink/60">
         {article.author && `מאת ${article.author} · `}
         {updatedLabel && `עודכן לאחרונה: ${new Date(updatedLabel).toLocaleDateString("he-IL")}`}

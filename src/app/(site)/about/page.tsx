@@ -12,12 +12,12 @@ export default async function AboutPage() {
   const siteSettings = await getSiteSettings();
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-      <h1 className="text-3xl font-bold text-ink">מי אני</h1>
+    <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-24">
+      <h1 className="text-display font-bold text-ink">מי אני</h1>
       <CmsImage
         image={siteSettings.aboutImage}
         alt={siteSettings.siteName}
-        className="mt-6 aspect-[4/3] rounded-card bg-sage/30"
+        className="mt-6 aspect-[4/3] rounded-card"
       />
 
       <div className="prose prose-neutral mt-8 max-w-none text-ink/90">

@@ -10,18 +10,31 @@ html {
   scroll-behavior: smooth;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 body {
-  background-color: #f8f6f1;
-  color: #293a43;
+  @apply bg-cream text-ink;
+}
+
+:focus-visible {
+  @apply outline-2 outline-offset-2 outline-smoked-blue;
 }
 
 .skip-link {
+  @apply bg-smoked-blue text-cream;
   position: absolute;
   right: -999px;
   top: 0;
   z-index: 100;
-  background: #36566a;
-  color: #f8f6f1;
   padding: 0.75rem 1.25rem;
   border-radius: 0 0 0.5rem 0.5rem;
 }

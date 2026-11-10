@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { SanityImageSource } from "@sanity/image-url";
 import { urlForImage } from "@/sanity/lib/image";
+import PlaceholderImage from "@/components/ui/PlaceholderImage";
 
 type Props = {
   image?: SanityImageSource;
@@ -8,13 +9,23 @@ type Props = {
   className?: string;
   sizes?: string;
   priority?: boolean;
+  placeholderLabel?: string;
+  placeholderCompact?: boolean;
 };
 
-// אם אין תמונה מה-CMS, מוצגת תיבת Placeholder בפלטת האתר (כמו ב-M1) במקום
-// תמונה שבורה — עמודים ואזורים ללא תוכן מאושר נעלמים באלגנטיות (ראו דרישות M2, סעיף 5).
-export default function CmsImage({ image, alt, className, sizes, priority }: Props) {
+// אם אין תמונה מה-CMS, מוצג טיפול placeholder מעוצב ומוצהר-כזמני (לא מלבן
+// אפור גולמי) במקום תמונה שבורה (ראו דרישות M2, סעיף 5, ותוכנית העיצוב §8).
+export default function CmsImage({
+  image,
+  alt,
+  className,
+  sizes,
+  priority,
+  placeholderLabel,
+  placeholderCompact,
+}: Props) {
   if (!image) {
-    return <div className={className} aria-hidden="true" />;
+    return <PlaceholderImage className={className} label={placeholderLabel} compact={placeholderCompact} />;
   }
 
   const url = urlForImage(image).width(1200).fit("max").auto("format").url();

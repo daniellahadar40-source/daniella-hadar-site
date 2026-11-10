@@ -6,11 +6,11 @@ export default async function Footer() {
 
   return (
     <footer className="border-t border-sage/40 bg-champagne/40">
-      <div className="mx-auto max-w-6xl px-4 py-10 text-sm text-ink sm:px-6">
+      <div className="mx-auto max-w-6xl px-4 py-12 text-sm text-ink sm:px-6">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
           <div>
-            <p className="font-bold text-smoked-blue">{siteSettings.siteName}</p>
-            <p>{siteSettings.tagline}</p>
+            <p className="text-h3 font-bold text-smoked-blue">{siteSettings.siteName}</p>
+            <p className="mt-1 text-ink/70">{siteSettings.tagline}</p>
           </div>
           <div className="flex flex-col gap-1">
             {siteSettings.phone && (

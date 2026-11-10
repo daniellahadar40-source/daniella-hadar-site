@@ -1,98 +1,191 @@
-import Link from "next/link";
-import { getCourses, getSiteSettings } from "@/lib/data";
+import { getArticles, getCourses, getSiteSettings, getTestimonials } from "@/lib/data";
 import CmsImage from "@/components/CmsImage";
+import Button from "@/components/ui/Button";
+import Section from "@/components/ui/Section";
+import SectionLabel from "@/components/ui/SectionLabel";
+import Card from "@/components/ui/Card";
+import EmptyState from "@/components/ui/EmptyState";
+
+// שלושת מסלולי הליווי כפי שסוכמו בתוכנית העבודה (סעיף 10) — דיגיטלי עצמאי
+// הוא תמיד המסלול המודגש ביותר מבחינה חזותית באתר.
+const consultationPaths = [
+  {
+    label: "מסלול 1",
+    title: "קורס דיגיטלי עצמאי",
+    description:
+      "לומדים בקצב אישי, מתי שנוח, בליווי חומר כתוב וברור — נקודת ההתחלה המומלצת לרוב המשפחות.",
+  },
+  {
+    label: "מסלול 2",
+    title: "ייעוץ אישי בזום",
+    description: "פגישת ייעוץ אחד-על-אחד מכל מקום בארץ, להתמקדות במצב הספציפי שלכם.",
+  },
+  {
+    label: "מסלול 3",
+    title: "פגישה פרונטלית",
+    description: "פגישה פנים אל פנים בתיאום מראש, בהתאם לזמינות ולאזור השירות.",
+  },
+];
 
 export default async function HomePage() {
-  const [courses, siteSettings] = await Promise.all([getCourses(), getSiteSettings()]);
+  const [courses, siteSettings, articles, testimonials] = await Promise.all([
+    getCourses(),
+    getSiteSettings(),
+    getArticles(),
+    getTestimonials(),
+  ]);
   const mainCourse = courses.find((course) => course.status !== "hidden");
 
   return (
     <>
-      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
+      <Section className="pt-8 sm:pt-12">
         <div className="grid gap-10 md:grid-cols-2 md:items-center">
           <div>
-            <p className="mb-3 text-sm font-semibold text-smoked-blue">
-              עובדת סוציאלית · מיצוי זכויות רפואיות
-            </p>
-            <h1 className="text-3xl font-bold leading-tight text-ink sm:text-4xl">
-              ליווי מקצועי ורגוע במיצוי זכויות רפואיות ונפשיות
+            <SectionLabel>עובדת סוציאלית · מיצוי זכויות רפואיות</SectionLabel>
+            <h1 className="mt-4 text-display font-bold leading-tight text-ink sm:text-display-lg">
+              ידע מקצועי. ליווי אנושי.
+              <br />
+              יותר בהירות בדרך.
             </h1>
-            <p className="mt-4 text-lg text-ink/80">
+            <p className="mt-5 max-w-lg text-body-lg text-ink/80">
               עובדת סוציאלית המלווה משפחות ויחידים מול ביטוח לאומי והוועדות
               הרפואיות — בידע מקצועי, בבהירות ובלי בירוקרטיה מיותרת.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
-              <Link
-                href="/courses"
-                className="rounded-card bg-smoked-blue px-6 py-3 font-semibold text-cream transition hover:opacity-90"
-              >
-                לצפייה בקורסים
-              </Link>
-              <Link
-                href="/about"
-                className="rounded-card border border-smoked-blue px-6 py-3 font-semibold text-smoked-blue transition hover:bg-sage/20"
-              >
+              <Button href="/courses">לצפייה בקורסים</Button>
+              <Button href="/about" variant="secondary">
                 להכיר את דניאלה
-              </Link>
+              </Button>
             </div>
           </div>
-          <CmsImage
-            image={siteSettings.heroImage}
-            alt="דניאלה הדר"
-            className="aspect-[4/5] rounded-card bg-sage/30"
-            priority
-          />
+          <CmsImage image={siteSettings.heroImage} alt="דניאלה הדר" className="aspect-[4/5] rounded-card" priority />
         </div>
-      </section>
+      </Section>
+
+      <Section tone="champagne" ariaLabelledBy="paths-title">
+        <SectionLabel>איך לעבוד איתי</SectionLabel>
+        <h2 id="paths-title" className="mt-3 text-h2 font-bold text-ink">
+          שלושה מסלולים, קצב אחד שלכם
+        </h2>
+        <div className="mt-10 grid gap-6 sm:grid-cols-3">
+          {consultationPaths.map((path) => (
+            <div key={path.title} className="rounded-card bg-cream/70 p-6">
+              <p className="text-caption font-semibold tracking-wide text-smoked-blue">{path.label}</p>
+              <h3 className="mt-3 text-h3 font-bold text-ink">{path.title}</h3>
+              <p className="mt-2 text-ink/80">{path.description}</p>
+            </div>
+          ))}
+        </div>
+      </Section>
 
       {mainCourse && (
-        <section className="bg-champagne/30 py-16" aria-labelledby="main-course-title">
-          <div className="mx-auto max-w-6xl px-4 sm:px-6">
-            <p className="text-sm font-semibold text-smoked-blue">הקורס הדיגיטלי המרכזי</p>
-            <h2 id="main-course-title" className="mt-2 text-2xl font-bold text-ink">
-              {mainCourse.title}
-            </h2>
-            <p className="mt-3 max-w-2xl text-ink/80">{mainCourse.shortDescription}</p>
-            <Link
-              href={`/courses/${mainCourse.slug}`}
-              className="mt-6 inline-block rounded-card bg-smoked-blue px-6 py-3 font-semibold text-cream transition hover:opacity-90"
-            >
-              לפרטי הקורס
-            </Link>
+        <Section ariaLabelledBy="main-course-title">
+          <SectionLabel>הקורס הדיגיטלי המרכזי</SectionLabel>
+          <div className="mt-6 grid gap-10 rounded-card border border-sage/40 bg-white/70 p-8 sm:p-10 md:grid-cols-2 md:items-center">
+            <CmsImage image={mainCourse.coverImage} alt={mainCourse.title} className="aspect-[4/3] rounded-card" />
+            <div>
+              <h2 id="main-course-title" className="text-h2 font-bold text-ink">
+                {mainCourse.title}
+              </h2>
+              <p className="mt-3 text-ink/80">{mainCourse.shortDescription}</p>
+              <div className="mt-6">
+                <Button href={`/courses/${mainCourse.slug}`}>לפרטי הקורס</Button>
+              </div>
+            </div>
           </div>
-        </section>
+        </Section>
       )}
 
-      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6" aria-labelledby="about-preview-title">
-        <h2 id="about-preview-title" className="text-2xl font-bold text-ink">
-          מי אני
-        </h2>
-        <p className="mt-4 max-w-2xl text-ink/80">
-          עבדתי שנים רבות כעובדת סוציאלית בתוך המערכות הציבוריות, ומכירה את
-          התהליך מבפנים. הקורסים והליווי שאני מציעה נולדו מתוך רצון להנגיש
-          את הידע הזה למשפחות שמתמודדות עם מצב רפואי מאתגר.
-        </p>
-        <Link href="/about" className="mt-4 inline-block font-semibold text-smoked-blue hover:underline">
-          לקרוא את הסיפור המלא ←
-        </Link>
-      </section>
+      <Section tone="sage" ariaLabelledBy="about-preview-title">
+        <div className="max-w-2xl">
+          <SectionLabel>מי אני</SectionLabel>
+          <h2 id="about-preview-title" className="mt-3 text-h2 font-bold text-ink">
+            עובדת מהשטח, לא רק מהספר
+          </h2>
+          <p className="mt-4 text-ink/80">
+            עבדתי שנים רבות כעובדת סוציאלית בתוך המערכות הציבוריות, ומכירה את
+            התהליך מבפנים. הקורסים והליווי שאני מציעה נולדו מתוך רצון להנגיש
+            את הידע הזה למשפחות שמתמודדות עם מצב רפואי מאתגר.
+          </p>
+          <div className="mt-5">
+            <Button href="/about" variant="ghost">
+              לקרוא את הסיפור המלא ←
+            </Button>
+          </div>
+        </div>
+      </Section>
 
-      <section className="bg-sage/20 py-16" aria-labelledby="contact-title">
-        <div className="mx-auto max-w-6xl px-4 text-center sm:px-6">
-          <h2 id="contact-title" className="text-2xl font-bold text-ink">
+      <Section ariaLabelledBy="knowledge-preview-title">
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <SectionLabel>מרכז הידע</SectionLabel>
+            <h2 id="knowledge-preview-title" className="mt-3 text-h2 font-bold text-ink">
+              מאמרים מקצועיים, בלי ז&apos;רגון
+            </h2>
+          </div>
+          <Button href="/knowledge" variant="ghost">
+            לכל המאמרים ←
+          </Button>
+        </div>
+
+        {articles.length === 0 ? (
+          <div className="mt-10">
+            <EmptyState title="מרכז הידע בבנייה" description="המאמרים הראשונים יפורסמו כאן בקרוב." />
+          </div>
+        ) : (
+          <div className="mt-10 grid gap-6 sm:grid-cols-3">
+            {articles.slice(0, 3).map((article) => (
+              <Card key={article.slug}>
+                <CmsImage image={article.coverImage} alt={article.title} className="mb-4 aspect-[4/3] rounded-card" />
+                <h3 className="text-h3 font-bold text-ink">{article.title}</h3>
+                <p className="mt-2 text-ink/80">{article.excerpt}</p>
+                <Button href={`/knowledge/${article.slug}`} variant="ghost" className="mt-4 inline-block">
+                  לקריאת המאמר ←
+                </Button>
+              </Card>
+            ))}
+          </div>
+        )}
+      </Section>
+
+      <Section tone="champagne" ariaLabelledBy="testimonials-preview-title">
+        <SectionLabel>מה אומרים</SectionLabel>
+        <h2 id="testimonials-preview-title" className="mt-3 text-h2 font-bold text-ink">
+          ממליצות וממליצים
+        </h2>
+
+        {testimonials.length === 0 ? (
+          <div className="mt-10">
+            <EmptyState
+              title="ההמלצות בדרך"
+              description="המלצות מאומתות יפורסמו כאן בקרוב, לאחר אישור מפורש מכל ממליצה וממליץ."
+            />
+          </div>
+        ) : (
+          <div className="mt-10 grid gap-6 sm:grid-cols-3">
+            {testimonials.slice(0, 3).map((testimonial, index) => (
+              <Card key={`${testimonial.displayName}-${index}`}>
+                <p className="text-ink/90">&rdquo;{testimonial.quote}&ldquo;</p>
+                <p className="mt-4 font-semibold text-smoked-blue">{testimonial.displayName}</p>
+              </Card>
+            ))}
+          </div>
+        )}
+      </Section>
+
+      <Section tone="blue" ariaLabelledBy="contact-title">
+        <div className="mx-auto max-w-xl text-center">
+          <h2 id="contact-title" className="text-h2 font-bold">
             רוצה לשמוע עוד?
           </h2>
-          <p className="mx-auto mt-3 max-w-xl text-ink/80">
-            אפשר ליצור קשר ישירות או להצטרף לרשימת העדכונים.
-          </p>
-          <Link
-            href="/contact"
-            className="mt-6 inline-block rounded-card bg-smoked-blue px-6 py-3 font-semibold text-cream transition hover:opacity-90"
-          >
-            יצירת קשר
-          </Link>
+          <p className="mt-3 text-cream/85">אפשר ליצור קשר ישירות או להצטרף לרשימת העדכונים.</p>
+          <div className="mt-6 flex justify-center">
+            <Button href="/contact" variant="inverse">
+              יצירת קשר
+            </Button>
+          </div>
         </div>
-      </section>
+      </Section>
     </>
   );
 }

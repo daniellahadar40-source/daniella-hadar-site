@@ -11,9 +11,9 @@ export default async function ContactPage() {
   const siteSettings = await getSiteSettings();
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-      <h1 className="text-3xl font-bold text-ink">יצירת קשר</h1>
-      <p className="mt-3 text-ink/80">
+    <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-24">
+      <h1 className="text-display font-bold text-ink">יצירת קשר</h1>
+      <p className="mt-3 text-body-lg text-ink/80">
         ניתן לפנות ישירות בטלפון או במייל, או למלא את הטופס למטה.
       </p>
 
