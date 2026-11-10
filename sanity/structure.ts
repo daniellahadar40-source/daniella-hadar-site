@@ -4,6 +4,7 @@ import type { StructureResolver } from "sanity/structure";
 // ליצור מסמכים כפולים בטעות.
 export const structure: StructureResolver = (S) =>
   S.list()
+    .id("root")
     .title("תוכן האתר")
     .items([
       S.listItem()
