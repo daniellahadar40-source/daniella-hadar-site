@@ -17,18 +17,18 @@ export default function Header() {
           <span className="text-h3 font-bold text-smoked-blue">דניאלה הדר</span>
           <span className="text-caption text-ink/60">מיצוי זכויות וליווי משפחות</span>
         </Link>
-        <nav aria-label="ניווט ראשי" className="hidden gap-6 text-sm font-medium text-ink md:flex">
+        <nav aria-label="ניווט ראשי" className="hidden gap-6 text-sm font-medium text-ink lg:flex">
           {navLinks.map((link) => (
             <Link key={link.href} href={link.href} className="transition hover:text-smoked-blue">
               {link.label}
             </Link>
           ))}
         </nav>
-        <Button href="/courses" className="hidden px-4 py-2 text-sm sm:inline-block">
+        <Button href="/courses" className="hidden shrink-0 px-4 py-2 text-sm sm:inline-block">
           לצפייה בקורסים
         </Button>
       </div>
-      <nav aria-label="ניווט ראשי - מובייל" className="flex flex-wrap gap-x-5 gap-y-2 px-4 pb-4 text-sm text-ink md:hidden">
+      <nav aria-label="ניווט ראשי - מובייל" className="flex flex-wrap gap-x-5 gap-y-2 px-4 pb-4 text-sm text-ink lg:hidden">
         {navLinks.map((link) => (
           <Link key={link.href} href={link.href} className="hover:text-smoked-blue">
             {link.label}
