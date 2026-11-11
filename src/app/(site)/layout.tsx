@@ -1,13 +1,21 @@
 import type { Metadata } from "next";
-import { Heebo } from "next/font/google";
+import { Assistant, Suez_One } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SkipLink from "@/components/SkipLink";
 
-const heebo = Heebo({
+const assistant = Assistant({
   subsets: ["hebrew", "latin"],
-  variable: "--font-heebo",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-assistant",
+  display: "swap",
+});
+
+const suezOne = Suez_One({
+  subsets: ["hebrew", "latin"],
+  weight: ["400"],
+  variable: "--font-suez",
   display: "swap",
 });
 
@@ -24,8 +32,8 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="he" dir="rtl" className={heebo.variable}>
-      <body className="font-heebo">
+    <html lang="he" dir="rtl" className={`${assistant.variable} ${suezOne.variable}`}>
+      <body className="font-assistant">
         <SkipLink />
         <Header />
         <main id="main">{children}</main>

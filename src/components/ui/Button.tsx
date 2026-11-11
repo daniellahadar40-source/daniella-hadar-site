@@ -4,11 +4,11 @@ import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from "reac
 type Variant = "primary" | "secondary" | "ghost" | "inverse";
 
 const variantClasses: Record<Variant, string> = {
-  primary: "rounded-card bg-smoked-blue px-6 py-3 font-semibold text-cream transition hover:opacity-90",
+  primary: "rounded-full bg-smoked-blue px-7 py-3 font-semibold text-cream transition hover:opacity-90",
   secondary:
-    "rounded-card border border-smoked-blue px-6 py-3 font-semibold text-smoked-blue transition hover:bg-sage/20",
+    "rounded-full border border-ink/30 bg-transparent px-7 py-3 font-semibold text-ink transition hover:bg-ink/5",
   ghost: "font-semibold text-smoked-blue transition hover:underline",
-  inverse: "rounded-card bg-cream px-6 py-3 font-semibold text-smoked-blue transition hover:opacity-90",
+  inverse: "rounded-full bg-cream px-7 py-3 font-semibold text-ink transition hover:opacity-90",
 };
 
 type CommonProps = {

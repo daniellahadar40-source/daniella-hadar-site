@@ -34,7 +34,7 @@ export default async function KnowledgePage() {
           {articles.map((article) => (
             <Card key={article.slug}>
               <CmsImage image={article.coverImage} alt={article.title} className="mb-4 aspect-[4/3] rounded-card" />
-              <h2 className="text-h3 font-bold text-ink">{article.title}</h2>
+              <h2 className="text-h3 font-serif font-normal text-ink">{article.title}</h2>
               <p className="mt-2 text-ink/80">{article.excerpt}</p>
               <Button href={`/knowledge/${article.slug}`} variant="ghost" className="mt-4 inline-block">
                 לקריאת המאמר ←

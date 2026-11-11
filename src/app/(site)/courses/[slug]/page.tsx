@@ -54,7 +54,7 @@ export default async function CoursePage({
         fallback={<AbstractArt variant="course" className="mb-8 aspect-[16/9] rounded-card" />}
       />
       <SectionLabel>{course.status === "coming-soon" ? "קורס דיגיטלי · בקרוב" : "קורס דיגיטלי"}</SectionLabel>
-      <h1 className="mt-3 text-display font-bold text-ink">{course.title}</h1>
+      <h1 className="mt-3 text-display font-serif font-normal text-ink">{course.title}</h1>
       <p className="mt-4 text-body-lg text-ink/80">{course.shortDescription}</p>
 
       {course.fullDescription && (
@@ -65,14 +65,14 @@ export default async function CoursePage({
 
       {course.lessons.length > 0 && (
         <section className="mt-10" aria-labelledby="lessons-title">
-          <h2 id="lessons-title" className="text-h2 font-bold text-ink">
+          <h2 id="lessons-title" className="text-h2 font-serif font-normal text-ink">
             מבנה הקורס
           </h2>
           <ol className="mt-4 space-y-4">
             {course.lessons.map((lesson, index) => (
               <li key={lesson.title} className="rounded-card border border-sage/40 bg-white/60 p-5">
                 <p className="text-sm font-semibold text-smoked-blue">שיעור {index + 1}</p>
-                <h3 className="mt-1 font-bold text-ink">{lesson.title}</h3>
+                <h3 className="mt-1 font-serif font-normal text-ink">{lesson.title}</h3>
                 {lesson.description && <p className="mt-1 text-ink/80">{lesson.description}</p>}
               </li>
             ))}
@@ -81,7 +81,7 @@ export default async function CoursePage({
       )}
 
       <section className="mt-10 rounded-card bg-champagne/40 p-6" aria-labelledby="pricing-title">
-        <h2 id="pricing-title" className="text-h3 font-bold text-ink">
+        <h2 id="pricing-title" className="text-h3 font-serif font-normal text-ink">
           {course.status === "coming-soon" ? "בקרוב" : "מחיר"}
         </h2>
 

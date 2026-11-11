@@ -12,7 +12,8 @@ const config: Config = {
         ink: "#293A43",
       },
       fontFamily: {
-        heebo: ["var(--font-heebo)", "sans-serif"],
+        assistant: ["var(--font-assistant)", "sans-serif"],
+        serif: ["var(--font-suez)", "serif"],
       },
       fontSize: {
         display: ["2.75rem", { lineHeight: "1.15", letterSpacing: "-0.01em" }],

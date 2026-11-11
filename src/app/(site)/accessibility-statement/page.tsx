@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 export default function AccessibilityStatementPage() {
   return (
     <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6">
-      <h1 className="text-3xl font-bold text-ink">הצהרת נגישות</h1>
+      <h1 className="text-3xl font-serif font-normal text-ink">הצהרת נגישות</h1>
       <div className="prose prose-neutral mt-6 max-w-none text-ink/90">
         <p>
           אתר זה תוכנן ונבנה תוך שאיפה לעמוד בדרישות הנגישות המקובלות, לרבות

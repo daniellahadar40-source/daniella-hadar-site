@@ -44,7 +44,7 @@ export default async function ArticlePage({
         priority
       />
       <SectionLabel>מרכז הידע</SectionLabel>
-      <h1 className="mt-3 text-display font-bold text-ink">{article.title}</h1>
+      <h1 className="mt-3 text-display font-serif font-normal text-ink">{article.title}</h1>
       <p className="mt-2 text-sm text-ink/60">
         {article.author && `מאת ${article.author} · `}
         {updatedLabel && `עודכן לאחרונה: ${new Date(updatedLabel).toLocaleDateString("he-IL")}`}

@@ -42,7 +42,7 @@ export default async function ContactPage() {
       </div>
 
       <div className="mt-10 rounded-card border border-sage/40 bg-white/60 p-6 sm:p-8">
-        <h2 className="text-h3 font-bold text-ink">טופס פנייה</h2>
+        <h2 className="text-h3 font-serif font-normal text-ink">טופס פנייה</h2>
         <p className="mt-1 text-sm text-ink/70">
           הטופס עדיין אינו מחובר באופן אוטומטי — לתשובה מהירה מוזמנת/ים לפנות
           בטלפון או במייל שמעלינו, או להשתמש בטופס ואני אחזור אליכם בהקדם.

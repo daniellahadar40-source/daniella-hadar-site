@@ -36,7 +36,7 @@ export default async function CoursesPage() {
           {courses.map((course) => (
             <Card key={course.slug}>
               <CmsImage image={course.coverImage} alt={course.title} className="mb-4 aspect-[4/3] rounded-card" />
-              <h2 className="text-h3 font-bold text-ink">{course.title}</h2>
+              <h2 className="text-h3 font-serif font-normal text-ink">{course.title}</h2>
               <p className="mt-2 text-ink/80">{course.shortDescription}</p>
               {course.status === "coming-soon" ? (
                 <p className="mt-4 inline-block rounded-card bg-champagne/50 px-3 py-1 text-sm font-semibold text-ink">

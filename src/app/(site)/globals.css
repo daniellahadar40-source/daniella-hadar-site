@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 :root {
-  --font-heebo: "Heebo", sans-serif;
+  --font-assistant: "Assistant", sans-serif;
+  --font-suez: "Suez One", serif;
 }
 
 html {
