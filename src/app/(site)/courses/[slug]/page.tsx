@@ -4,6 +4,8 @@ import { PortableText } from "@portabletext/react";
 import { getCourseBySlug, getCourseSlugs } from "@/lib/data";
 import CmsImage from "@/components/CmsImage";
 import Button from "@/components/ui/Button";
+import SectionLabel from "@/components/ui/SectionLabel";
+import AbstractArt from "@/components/ui/AbstractArt";
 
 export async function generateStaticParams() {
   const slugs = await getCourseSlugs();
@@ -38,14 +40,21 @@ export default async function CoursePage({
   const canPurchase = course.status === "published" && Boolean(course.purchaseUrl);
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+    <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16">
+      {course.status === "draft" && (
+        <p className="mb-6 inline-block rounded-card border border-champagne bg-champagne/40 px-4 py-2 text-sm font-semibold text-ink">
+          קורס זה נמצא עדיין בשלבי הכנה וטרם אושר לפרסום סופי.
+        </p>
+      )}
       <CmsImage
         image={course.coverImage}
         alt={course.title}
         className="mb-8 aspect-[16/9] rounded-card"
         priority
+        fallback={<AbstractArt variant="course" className="mb-8 aspect-[16/9] rounded-card" />}
       />
-      <h1 className="text-display font-bold text-ink">{course.title}</h1>
+      <SectionLabel>{course.status === "coming-soon" ? "קורס דיגיטלי · בקרוב" : "קורס דיגיטלי"}</SectionLabel>
+      <h1 className="mt-3 text-display font-bold text-ink">{course.title}</h1>
       <p className="mt-4 text-body-lg text-ink/80">{course.shortDescription}</p>
 
       {course.fullDescription && (

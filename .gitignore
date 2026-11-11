@@ -19,3 +19,6 @@ npm-debug.log*
 .vercel
 *.tsbuildinfo
 next-env.d.ts
+
+# local visual QA screenshots (not part of the shipped product)
+/.qa-screenshots/

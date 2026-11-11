@@ -4,6 +4,7 @@ import CmsImage from "@/components/CmsImage";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import EmptyState from "@/components/ui/EmptyState";
+import PageHeader from "@/components/ui/PageHeader";
 
 export const metadata: Metadata = {
   title: "קורסים דיגיטליים",
@@ -11,15 +12,21 @@ export const metadata: Metadata = {
 };
 
 export default async function CoursesPage() {
-  const courses = (await getCourses()).filter((course) => course.status !== "hidden");
+  // מוצגים בקטלוג הציבורי רק קורסים שאושרו לפרסום ("פעיל") או שהוכרזו
+  // רשמית כ"בקרוב". קורס בסטטוס "טיוטה" (שם/תוכן לא סופיים) אינו מוצג
+  // בקטלוג, כדי לא להציג כחי/ניתן-לרכישה תוכן שלא אושר (ראו כללי התוכן).
+  const courses = (await getCourses()).filter(
+    (course) => course.status === "published" || course.status === "coming-soon"
+  );
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
-      <h1 className="text-display font-bold text-ink">קורסים דיגיטליים</h1>
-      <p className="mt-3 max-w-2xl text-body-lg text-ink/80">
-        קורסים מעשיים וממוקדים, שנבנו מתוך ניסיון מקצועי בשטח.
-      </p>
-
+    <div>
+      <PageHeader
+        eyebrow="קורסים דיגיטליים"
+        title="קורסים דיגיטליים"
+        lede="קורסים מעשיים וממוקדים, שנבנו מתוך ניסיון מקצועי בשטח."
+      />
+      <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
       {courses.length === 0 ? (
         <div className="mt-10">
           <EmptyState title="קורסים בדרך" description="קורסים יתפרסמו כאן בקרוב." />
@@ -47,6 +54,7 @@ export default async function CoursesPage() {
           ))}
         </div>
       )}
+      </div>
     </div>
   );
 }

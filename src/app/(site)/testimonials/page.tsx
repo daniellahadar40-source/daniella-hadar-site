@@ -3,6 +3,7 @@ import { getTestimonials } from "@/lib/data";
 import CmsImage from "@/components/CmsImage";
 import Card from "@/components/ui/Card";
 import EmptyState from "@/components/ui/EmptyState";
+import PageHeader from "@/components/ui/PageHeader";
 
 export const metadata: Metadata = {
   title: "המלצות",
@@ -15,11 +16,11 @@ export default async function TestimonialsPage() {
   const testimonials = await getTestimonials();
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
-      <h1 className="text-display font-bold text-ink">מה אומרים</h1>
-
+    <div>
+      <PageHeader eyebrow="מה אומרים" title="מה אומרים" />
+      <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
       {testimonials.length === 0 ? (
-        <div className="mt-10">
+        <div className="mt-2">
           <EmptyState
             title="ההמלצות בדרך"
             description="המלצות מאומתות יפורסמו כאן בקרוב, לאחר אישור מפורש מכל ממליצה וממליץ."
@@ -41,6 +42,7 @@ export default async function TestimonialsPage() {
           ))}
         </div>
       )}
+      </div>
     </div>
   );
 }

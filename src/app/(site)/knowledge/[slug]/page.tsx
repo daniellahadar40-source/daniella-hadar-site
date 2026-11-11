@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { PortableText } from "@portabletext/react";
 import { getArticleBySlug, getArticleSlugs } from "@/lib/data";
 import CmsImage from "@/components/CmsImage";
+import SectionLabel from "@/components/ui/SectionLabel";
 
 export async function generateStaticParams() {
   const slugs = await getArticleSlugs();
@@ -35,14 +36,15 @@ export default async function ArticlePage({
   const updatedLabel = article.updatedAt ?? article.publishedAt;
 
   return (
-    <article className="mx-auto max-w-2xl px-4 py-16 sm:px-6">
+    <article className="mx-auto max-w-2xl px-4 py-12 sm:px-6 sm:py-16">
       <CmsImage
         image={article.coverImage}
         alt={article.title}
         className="mb-8 aspect-[16/9] rounded-card"
         priority
       />
-      <h1 className="text-display font-bold text-ink">{article.title}</h1>
+      <SectionLabel>מרכז הידע</SectionLabel>
+      <h1 className="mt-3 text-display font-bold text-ink">{article.title}</h1>
       <p className="mt-2 text-sm text-ink/60">
         {article.author && `מאת ${article.author} · `}
         {updatedLabel && `עודכן לאחרונה: ${new Date(updatedLabel).toLocaleDateString("he-IL")}`}

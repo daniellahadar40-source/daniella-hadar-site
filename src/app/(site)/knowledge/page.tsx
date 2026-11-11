@@ -4,6 +4,7 @@ import CmsImage from "@/components/CmsImage";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import EmptyState from "@/components/ui/EmptyState";
+import PageHeader from "@/components/ui/PageHeader";
 
 export const metadata: Metadata = {
   title: "מרכז הידע",
@@ -14,15 +15,19 @@ export default async function KnowledgePage() {
   const articles = await getArticles();
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
-      <h1 className="text-display font-bold text-ink">מרכז הידע</h1>
-      <p className="mt-3 max-w-2xl text-body-lg text-ink/80">
-        מאמרים מקצועיים על מיצוי זכויות רפואיות, עם מקורות מאומתים ותאריך עדכון.
-      </p>
-
+    <div>
+      <PageHeader
+        eyebrow="מרכז הידע"
+        title="מרכז הידע"
+        lede="מאמרים מקצועיים על מיצוי זכויות רפואיות, עם מקורות מאומתים ותאריך עדכון."
+      />
+      <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
       {articles.length === 0 ? (
-        <div className="mt-10">
-          <EmptyState title="מרכז הידע בבנייה" description="המאמרים הראשונים יפורסמו כאן בקרוב." />
+        <div className="mt-2">
+          <EmptyState
+            title="מרכז הידע בבנייה"
+            description="המאמרים הראשונים יפורסמו כאן בקרוב, עם מקורות מאומתים ובלי ז׳רגון."
+          />
         </div>
       ) : (
         <div className="mt-10 grid gap-6 sm:grid-cols-2">
@@ -38,6 +43,7 @@ export default async function KnowledgePage() {
           ))}
         </div>
       )}
+      </div>
     </div>
   );
 }

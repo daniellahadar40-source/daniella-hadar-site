@@ -1,4 +1,5 @@
 import Image from "next/image";
+import type { ReactNode } from "react";
 import type { SanityImageSource } from "@sanity/image-url";
 import { urlForImage } from "@/sanity/lib/image";
 import PlaceholderImage from "@/components/ui/PlaceholderImage";
@@ -11,6 +12,10 @@ type Props = {
   priority?: boolean;
   placeholderLabel?: string;
   placeholderCompact?: boolean;
+  // רכיב חלופי מעוצב במקום ה-placeholder הגנרי (למשל קומפוזיציית SVG
+  // אבסטרקטית ב-Hero). כשתועלה תמונה אמיתית ב-Sanity היא תוצג אוטומטית
+  // במקום ה-fallback, בלי שינוי מבנה הדף (ראו דרישות התוכן, סעיף תמונת דניאלה).
+  fallback?: ReactNode;
 };
 
 // אם אין תמונה מה-CMS, מוצג טיפול placeholder מעוצב ומוצהר-כזמני (לא מלבן
@@ -23,8 +28,10 @@ export default function CmsImage({
   priority,
   placeholderLabel,
   placeholderCompact,
+  fallback,
 }: Props) {
   if (!image) {
+    if (fallback) return <>{fallback}</>;
     return <PlaceholderImage className={className} label={placeholderLabel} compact={placeholderCompact} />;
   }
 

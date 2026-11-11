@@ -21,8 +21,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: new Date(),
   }));
 
+  // רק קורסים שאושרו לפרסום ("פעיל") או שהוכרזו רשמית כ"בקרוב" נכנסים
+  // ל-sitemap. קורס בסטטוס "טיוטה" אינו קיים עדיין מבחינה ציבורית, ולכן
+  // אינו צריך להיות מאונדקס (ראו כללי התוכן המחייבים: לא להציג כחי).
   const courseRoutes = courses
-    .filter((course) => course.status !== "hidden")
+    .filter((course) => course.status === "published" || course.status === "coming-soon")
     .map((course) => ({
       url: `${baseUrl}/courses/${course.slug}`,
       lastModified: new Date(),
