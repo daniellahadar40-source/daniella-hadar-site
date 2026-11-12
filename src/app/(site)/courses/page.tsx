@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getCourses } from "@/lib/data";
+import { getCourses, getSiteSettings } from "@/lib/data";
 import CmsImage from "@/components/CmsImage";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
@@ -15,9 +15,12 @@ export default async function CoursesPage() {
   // מוצגים בקטלוג הציבורי רק קורסים שאושרו לפרסום ("פעיל") או שהוכרזו
   // רשמית כ"בקרוב". קורס בסטטוס "טיוטה" (שם/תוכן לא סופיים) אינו מוצג
   // בקטלוג, כדי לא להציג כחי/ניתן-לרכישה תוכן שלא אושר (ראו כללי התוכן).
-  const courses = (await getCourses()).filter(
-    (course) => course.status === "published" || course.status === "coming-soon"
-  );
+  const [courses, siteSettings] = await Promise.all([
+    getCourses().then((list) =>
+      list.filter((course) => course.status === "published" || course.status === "coming-soon")
+    ),
+    getSiteSettings(),
+  ]);
 
   return (
     <div>
@@ -29,7 +32,24 @@ export default async function CoursesPage() {
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
       {courses.length === 0 ? (
         <div className="mt-10">
-          <EmptyState title="קורסים בדרך" description="קורסים יתפרסמו כאן בקרוב." />
+          <EmptyState
+            title="קורסים בדרך"
+            description="הקורסים בהכנה ויתפרסמו כאן בקרוב. בינתיים אפשר ליצור קשר לשיחת היכרות או לשאלה."
+            action={
+              <div className="flex flex-wrap justify-center gap-3">
+                {siteSettings.phone && (
+                  <Button href={`tel:${siteSettings.phone}`} variant="ghost">
+                    התקשרו
+                  </Button>
+                )}
+                {siteSettings.email && (
+                  <Button href={`mailto:${siteSettings.email}`} variant="ghost">
+                    שלחו מייל
+                  </Button>
+                )}
+              </div>
+            }
+          />
         </div>
       ) : (
         <div className="mt-10 grid gap-6 sm:grid-cols-2">

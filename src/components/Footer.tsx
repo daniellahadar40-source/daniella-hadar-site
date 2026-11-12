@@ -22,7 +22,7 @@ export default async function Footer() {
           </div>
 
           <nav aria-label="ניווט באתר" className="flex flex-col gap-1.5">
-            <p className="mb-1 text-caption font-semibold tracking-wide text-cream/50">ניווט</p>
+            <p className="mb-1 text-caption font-semibold tracking-wide text-cream/60">ניווט</p>
             {siteLinks.map((link) => (
               <Link key={link.href} href={link.href} className="hover:text-cream">
                 {link.label}
@@ -31,7 +31,7 @@ export default async function Footer() {
           </nav>
 
           <div className="flex flex-col gap-1.5">
-            <p className="mb-1 text-caption font-semibold tracking-wide text-cream/50">יצירת קשר</p>
+            <p className="mb-1 text-caption font-semibold tracking-wide text-cream/60">יצירת קשר</p>
             {siteSettings.phone && (
               <a href={`tel:${siteSettings.phone}`} className="hover:text-cream" dir="ltr">
                 {siteSettings.phone}
