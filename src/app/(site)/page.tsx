@@ -221,9 +221,18 @@ export default async function HomePage() {
                 מוכנים — בלי ז&apos;רגון, עם מקורות מאומתים. מי שרוצה לדעת כשהם
                 עולים מוזמנת/ה ליצור קשר.
               </p>
-              <Button href="/contact" variant="ghost" className="mt-5 inline-block">
-                עדכנו אותי כשיתפרסם מאמר ←
-              </Button>
+              <div className="mt-5 flex flex-wrap justify-center gap-3">
+                {siteSettings.phone && (
+                  <Button href={`tel:${siteSettings.phone}`} variant="ghost">
+                    התקשרו
+                  </Button>
+                )}
+                {siteSettings.email && (
+                  <Button href={`mailto:${siteSettings.email}`} variant="ghost">
+                    שלחו מייל
+                  </Button>
+                )}
+              </div>
             </div>
           ) : (
             <>

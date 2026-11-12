@@ -10,7 +10,7 @@ const navLinks = [
   { href: "/", label: "בית" },
   { href: "/courses", label: "קורסים" },
   { href: "/knowledge", label: "מרכז ידע" },
-  { href: "/testimonials", label: "המלצות" },
+  // "המלצות" הוסר זמנית מהניווט עד לקבלת המלצה מאושרת ראשונה; העמוד עצמו נשאר קיים ב-/testimonials.
   { href: "/about", label: "אודות" },
   { href: "/contact", label: "יצירת קשר" },
 ];

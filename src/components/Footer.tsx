@@ -5,7 +5,7 @@ const siteLinks = [
   { href: "/courses", label: "קורסים דיגיטליים" },
   { href: "/knowledge", label: "מרכז הידע" },
   { href: "/about", label: "אודות" },
-  { href: "/testimonials", label: "המלצות" },
+  // "המלצות" הוסר זמנית מהפוטר עד לקבלת המלצה מאושרת ראשונה; העמוד עצמו נשאר קיים ב-/testimonials.
   { href: "/contact", label: "יצירת קשר" },
 ];
 

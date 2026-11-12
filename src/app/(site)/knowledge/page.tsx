@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getArticles } from "@/lib/data";
+import { getArticles, getSiteSettings } from "@/lib/data";
 import CmsImage from "@/components/CmsImage";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 };
 
 export default async function KnowledgePage() {
-  const articles = await getArticles();
+  const [articles, siteSettings] = await Promise.all([getArticles(), getSiteSettings()]);
 
   return (
     <div>
@@ -27,6 +27,20 @@ export default async function KnowledgePage() {
           <EmptyState
             title="מרכז הידע בבנייה"
             description="המאמרים הראשונים יפורסמו כאן בקרוב, עם מקורות מאומתים ובלי ז׳רגון."
+            action={
+              <div className="flex flex-wrap justify-center gap-3">
+                {siteSettings.phone && (
+                  <Button href={`tel:${siteSettings.phone}`} variant="ghost">
+                    התקשרו
+                  </Button>
+                )}
+                {siteSettings.email && (
+                  <Button href={`mailto:${siteSettings.email}`} variant="ghost">
+                    שלחו מייל
+                  </Button>
+                )}
+              </div>
+            }
           />
         </div>
       ) : (
