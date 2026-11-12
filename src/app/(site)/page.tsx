@@ -62,12 +62,14 @@ export default async function HomePage() {
               image={siteSettings.heroImage}
               alt="מסמכי זכויות ועלה בוטני — תחום הליווי של דניאלה"
               className="relative z-10 aspect-[4/5] rounded-card shadow-lg shadow-ink/15"
+              sizes="(min-width: 768px) 45vw, 100vw"
               priority
               fallback={
                 <LocalPhoto
                   src="/images/hero-documents.png"
                   alt="מסמכי זכויות ועלה בוטני — תחום הליווי של דניאלה"
                   className="relative z-10 aspect-[4/5] rounded-card shadow-lg shadow-ink/15"
+                  sizes="(min-width: 768px) 45vw, 100vw"
                   priority
                 />
               }
@@ -103,12 +105,12 @@ export default async function HomePage() {
         <h2 id="paths-title" className="mt-3.5 text-h2 font-serif font-normal text-ink">
           שלושה מסלולים, קצב אחד שלכם
         </h2>
-        <div className="mt-12 flex flex-wrap">
+        <div className="mt-12 grid grid-cols-1 md:flex md:flex-wrap">
           {consultationPaths.map(({ Icon, label, title, description }, index) => (
             <div
               key={title}
-              className={`flex-1 px-6 py-7 text-center sm:min-w-[220px] sm:px-8 sm:py-0 ${
-                index > 0 ? "border-t border-ink/10 sm:border-t-0 sm:border-s sm:border-ink/10" : ""
+              className={`flex-1 px-6 py-7 text-center md:min-w-[220px] md:px-8 md:py-0 ${
+                index > 0 ? "border-t border-ink/10 md:border-t-0 md:border-s md:border-ink/10" : ""
               }`}
             >
               <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-sage/30 text-ink">
@@ -158,11 +160,13 @@ export default async function HomePage() {
                 image={mainCourse.coverImage}
                 alt={mainCourse.title}
                 className="flex-1 basis-[320px] min-h-[280px]"
+                sizes="(min-width: 768px) 420px, 100vw"
                 fallback={
                   <LocalPhoto
                     src="/images/course-books.png"
                     alt="ערימת ספרים המסמלת ידע ולמידה מובנית"
                     className="flex-1 basis-[320px] min-h-[280px]"
+                    sizes="(min-width: 768px) 420px, 100vw"
                   />
                 }
               />
@@ -171,6 +175,7 @@ export default async function HomePage() {
                 src="/images/course-books.png"
                 alt="ערימת ספרים המסמלת ידע ולמידה מובנית"
                 className="flex-1 basis-[320px] min-h-[280px]"
+                sizes="(min-width: 768px) 420px, 100vw"
               />
             )}
           </div>
@@ -179,37 +184,20 @@ export default async function HomePage() {
 
       {/* ===== מי אני ===== */}
       <Section ariaLabelledBy="about-preview-title">
-        <div className="grid gap-14 md:grid-cols-[1fr_1.3fr] md:items-center">
-          <div className="relative order-2 md:order-1">
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute -bottom-7 -start-7 h-[70%] w-[70%] rounded-full bg-[radial-gradient(circle,rgba(227,213,190,0.5)_0%,rgba(227,213,190,0)_72%)]"
-            />
-            <div
-              role="img"
-              aria-label="מקום שמור לתמונת הפורטרט של דניאלה הדר - תתווסף בהמשך"
-              className="relative z-10 flex aspect-[4/3] items-center justify-center rounded-card border border-dashed border-ink/30 bg-sage/[0.28] p-6 text-center text-sm text-ink"
-            >
-              מקום שמור לתמונת הפורטרט של דניאלה
-              <br />
-              (תתווסף בהמשך)
-            </div>
-          </div>
-          <div className="order-1 md:order-2">
-            <SectionLabel>מי אני</SectionLabel>
-            <h2 id="about-preview-title" className="mt-2.5 text-h2 font-serif font-normal text-ink">
-              עובדת מהשטח, לא רק מהספר
-            </h2>
-            <p className="mt-4 max-w-[460px] text-body-lg text-ink/85">
-              אני דניאלה הדר, עובדת סוציאלית העוסקת במיצוי זכויות רפואיות ונפשיות.
-              לאורך שנות עבודתי במערכות הציבוריות ליוויתי אנשים ומשפחות בתהליכים
-              מורכבים מול ביטוח לאומי והוועדות הרפואיות.
-            </p>
-            <div className="mt-5">
-              <Button href="/about" variant="ghost">
-                לקריאת הסיפור המלא ←
-              </Button>
-            </div>
+        <div className="mx-auto max-w-[460px] text-center md:text-start">
+          <SectionLabel>מי אני</SectionLabel>
+          <h2 id="about-preview-title" className="mt-2.5 text-h2 font-serif font-normal text-ink">
+            עובדת מהשטח, לא רק מהספר
+          </h2>
+          <p className="mt-4 text-body-lg text-ink/85">
+            אני דניאלה הדר, עובדת סוציאלית העוסקת במיצוי זכויות רפואיות ונפשיות.
+            לאורך שנות עבודתי במערכות הציבוריות ליוויתי אנשים ומשפחות בתהליכים
+            מורכבים מול ביטוח לאומי והוועדות הרפואיות.
+          </p>
+          <div className="mt-5">
+            <Button href="/about" variant="ghost">
+              לקריאת הסיפור המלא ←
+            </Button>
           </div>
         </div>
       </Section>
