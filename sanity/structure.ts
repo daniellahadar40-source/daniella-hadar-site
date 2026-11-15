@@ -11,6 +11,12 @@ export const structure: StructureResolver = (S) =>
         .title("הגדרות אתר")
         .id("siteSettings")
         .child(S.document().schemaType("siteSettings").documentId("siteSettings")),
+      S.listItem()
+        .title("עוזר הניווט")
+        .id("assistantSettings")
+        .child(S.document().schemaType("assistantSettings").documentId("assistantSettings")),
       S.divider(),
-      ...S.documentTypeListItems().filter((item) => item.getId() !== "siteSettings"),
+      ...S.documentTypeListItems().filter(
+        (item) => item.getId() !== "siteSettings" && item.getId() !== "assistantSettings",
+      ),
     ]);

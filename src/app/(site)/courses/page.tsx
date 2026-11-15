@@ -1,15 +1,23 @@
 import type { Metadata } from "next";
 import { getCourses, getSiteSettings } from "@/lib/data";
+import { createPageMetadata } from "@/lib/metadata";
 import CmsImage from "@/components/CmsImage";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import EmptyState from "@/components/ui/EmptyState";
 import PageHeader from "@/components/ui/PageHeader";
 
-export const metadata: Metadata = {
-  title: "קורסים דיגיטליים",
-  description: "קטלוג הקורסים הדיגיטליים של דניאלה הדר למיצוי זכויות רפואיות.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const courses = await getCourses();
+  const hasPublishedCourse = courses.some((course) => course.status === "published");
+
+  return createPageMetadata({
+    title: "קורסים דיגיטליים",
+    description: "קטלוג הקורסים הדיגיטליים של דניאלה הדר למיצוי זכויות רפואיות.",
+    path: "/courses",
+    index: hasPublishedCourse,
+  });
+}
 
 export default async function CoursesPage() {
   // מוצגים בקטלוג הציבורי רק קורסים שאושרו לפרסום ("פעיל") או שהוכרזו

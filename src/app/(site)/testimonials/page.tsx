@@ -1,14 +1,21 @@
 import type { Metadata } from "next";
 import { getTestimonials } from "@/lib/data";
+import { createPageMetadata } from "@/lib/metadata";
 import CmsImage from "@/components/CmsImage";
 import Card from "@/components/ui/Card";
 import EmptyState from "@/components/ui/EmptyState";
 import PageHeader from "@/components/ui/PageHeader";
 
-export const metadata: Metadata = {
-  title: "המלצות",
-  description: "המלצות של תלמידות ותלמידים על הקורסים והליווי של דניאלה הדר.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const testimonials = await getTestimonials();
+
+  return createPageMetadata({
+    title: "המלצות",
+    description: "המלצות של תלמידות ותלמידים על הקורסים והליווי של דניאלה הדר.",
+    path: "/testimonials",
+    index: testimonials.length > 0,
+  });
+}
 
 export default async function TestimonialsPage() {
   // getTestimonials מחזיר רק המלצות שאושרו לפרסום במפורש וסטטוסן "פורסם"

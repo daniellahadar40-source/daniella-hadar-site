@@ -38,7 +38,21 @@ export const article = defineType({
       title: "תוכן המאמר",
       type: "array",
       group: "content",
-      of: [{ type: "block" }],
+      of: [
+        { type: "block" },
+        {
+          type: "image",
+          options: { hotspot: true },
+          fields: [
+            defineField({
+              name: "alt",
+              title: "טקסט חלופי (alt)",
+              type: "string",
+              validation: (Rule) => Rule.required(),
+            }),
+          ],
+        },
+      ],
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -88,6 +102,13 @@ export const article = defineType({
       type: "array",
       group: "meta",
       of: [{ type: "reference", to: [{ type: "course" }] }],
+    }),
+    defineField({
+      name: "relatedArticles",
+      title: "מאמרים קשורים",
+      type: "array",
+      group: "meta",
+      of: [{ type: "reference", to: [{ type: "article" }] }],
     }),
     defineField({
       name: "publishedAt",

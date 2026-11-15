@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PortableText } from "@portabletext/react";
 import { getCourseBySlug, getCourseSlugs } from "@/lib/data";
+import { createPageMetadata, SITE_URL } from "@/lib/metadata";
+import JsonLd from "@/components/JsonLd";
 import CmsImage from "@/components/CmsImage";
 import Button from "@/components/ui/Button";
 import SectionLabel from "@/components/ui/SectionLabel";
@@ -20,10 +22,12 @@ export async function generateMetadata({
   const { slug } = await params;
   const course = await getCourseBySlug(slug);
   if (!course) return {};
-  return {
+  return createPageMetadata({
     title: course.title,
     description: course.shortDescription,
-  };
+    path: `/courses/${slug}`,
+    index: course.status === "published",
+  });
 }
 
 export default async function CoursePage({
@@ -38,9 +42,22 @@ export default async function CoursePage({
   // קישור רכישה פעיל רק עבור קורס בסטטוס "פעיל" עם קישור מאומת - קורס
   // "בקרוב" או "טיוטה" לעולם לא יציג כפתור רכישה פעיל (ראו דרישות M2, סעיף 3).
   const canPurchase = course.status === "published" && Boolean(course.purchaseUrl);
+  const courseStructuredData =
+    course.status === "published"
+      ? {
+          "@context": "https://schema.org",
+          "@type": "Course",
+          name: course.title,
+          description: course.shortDescription,
+          url: new URL(`/courses/${slug}`, SITE_URL).toString(),
+          provider: { "@id": `${SITE_URL.toString()}#person` },
+          inLanguage: "he-IL",
+        }
+      : null;
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16">
+      {courseStructuredData && <JsonLd data={courseStructuredData} />}
       {course.status === "draft" && (
         <p className="mb-6 inline-block rounded-card border border-champagne bg-champagne/40 px-4 py-2 text-sm font-semibold text-ink">
           קורס זה נמצא עדיין בשלבי הכנה וטרם אושר לפרסום סופי.

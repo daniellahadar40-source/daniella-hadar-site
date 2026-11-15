@@ -4,7 +4,7 @@
 // כל שדה המסומן "DRAFT" מקורו באב-הטיפוס הקיים או במסמכי האיפיון,
 // וטעון אימות סופי מול דניאלה לפני פרסום לאוויר (ראו סעיף 13 בתוכנית).
 
-import type { Article, Course, SiteSettings, Testimonial } from "./types";
+import type { Article, AssistantSettings, Course, Faq, Service, SiteSettings, Testimonial } from "./types";
 
 export const fallbackSiteSettings: SiteSettings = {
   siteName: "דניאלה הדר",
@@ -40,3 +40,37 @@ export const fallbackArticles: Article[] = [];
 // נמצאו ציטוטים באב-הטיפוס הקיים, אך הם לא יוצגו עד אימות ואישור מפורש
 // מדניאלה לפרסום בשם מלא/ראשי תיבות (ראו סעיף 10 בתוכנית, סיכון 3).
 export const fallbackTestimonials: Testimonial[] = [];
+
+// תוכן קיים מהאתר הנוכחי. לאחר הזנת שירותים מאושרים ב-Sanity הם יחליפו את הרשימה הזו.
+export const fallbackServices: Service[] = [
+  {
+    label: "נקודת ההתחלה המומלצת",
+    title: "קורס דיגיטלי עצמאי",
+    shortDescription:
+      "לומדים בקצב אישי, מתי שנוח, בליווי חומר כתוב וברור — נקודת ההתחלה המומלצת לרוב המשפחות.",
+    serviceType: "digital",
+  },
+  {
+    label: "מסלול 2",
+    title: "ייעוץ אישי בזום",
+    shortDescription: "פגישת ייעוץ אחד-על-אחד מכל מקום בארץ, להתמקדות במצב הספציפי שלכם.",
+    serviceType: "zoom",
+  },
+  {
+    label: "מסלול 3",
+    title: "פגישה פרונטלית",
+    shortDescription: "פגישה פנים אל פנים בתיאום מראש, בהתאם לזמינות ולאזור השירות.",
+    serviceType: "in-person",
+  },
+];
+
+export const fallbackFaqs: Faq[] = [];
+
+export const fallbackAssistantSettings: AssistantSettings = {
+  enabled: true,
+  welcomeMessage: "כתבו מה אתם מחפשים ואעזור להגיע לעמוד המתאים באתר.",
+  disclaimer:
+    "זהו עוזר ניווט בהדגמה. הוא אינו נותן ייעוץ רפואי או משפטי ואינו קובע זכאות. אין להזין מידע רפואי או מזהה.",
+  suggestedQuestions: ["איזה שירות יכול להתאים?", "איפה נמצאים המאמרים?", "איך יוצרים קשר?"],
+  fallbackMessage: "לא מצאתי תשובה מדויקת באתר. אפשר לעבור לעמוד יצירת הקשר ולשאול את דניאלה.",
+};

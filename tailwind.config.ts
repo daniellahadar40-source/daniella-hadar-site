@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import typographyPlugin from "@tailwindcss/typography";
 
 const config: Config = {
   content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
@@ -27,9 +28,26 @@ const config: Config = {
       borderRadius: {
         card: "1.25rem",
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            "--tw-prose-body": "#293A43",
+            "--tw-prose-headings": "#293A43",
+            "--tw-prose-links": "#36566A",
+            "--tw-prose-bold": "#293A43",
+            "--tw-prose-bullets": "#A7BAAC",
+            "--tw-prose-hr": "#A7BAAC",
+            "--tw-prose-quotes": "#293A43",
+            "--tw-prose-quote-borders": "#A7BAAC",
+            maxWidth: "none",
+            a: { fontWeight: "600", textUnderlineOffset: "2px" },
+            "h2, h3": { fontFamily: "var(--font-suez), serif", fontWeight: "400" },
+          },
+        },
+      },
     },
   },
-  plugins: [],
+  plugins: [typographyPlugin],
 };
 
 export default config;

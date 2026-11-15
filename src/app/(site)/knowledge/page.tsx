@@ -1,15 +1,22 @@
 import type { Metadata } from "next";
 import { getArticles, getSiteSettings } from "@/lib/data";
-import CmsImage from "@/components/CmsImage";
+import { createPageMetadata } from "@/lib/metadata";
 import Button from "@/components/ui/Button";
-import Card from "@/components/ui/Card";
 import EmptyState from "@/components/ui/EmptyState";
 import PageHeader from "@/components/ui/PageHeader";
+import Breadcrumbs from "@/components/ui/Breadcrumbs";
+import ArticleBrowser from "@/components/knowledge/ArticleBrowser";
 
-export const metadata: Metadata = {
-  title: "מרכז הידע",
-  description: "מאמרים מקצועיים בנושא מיצוי זכויות רפואיות, מאת דניאלה הדר.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const articles = await getArticles();
+
+  return createPageMetadata({
+    title: "מרכז הידע",
+    description: "מאמרים מקצועיים בנושא מיצוי זכויות רפואיות, מאת דניאלה הדר.",
+    path: "/knowledge",
+    index: articles.length > 0,
+  });
+}
 
 export default async function KnowledgePage() {
   const [articles, siteSettings] = await Promise.all([getArticles(), getSiteSettings()]);
@@ -22,8 +29,9 @@ export default async function KnowledgePage() {
         lede="מאמרים מקצועיים על מיצוי זכויות רפואיות, עם מקורות מאומתים ותאריך עדכון."
       />
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
+      <Breadcrumbs items={[{ label: "בית", href: "/" }, { label: "מרכז הידע" }]} />
       {articles.length === 0 ? (
-        <div className="mt-2">
+        <div className="mt-8">
           <EmptyState
             title="מרכז הידע בבנייה"
             description="המאמרים הראשונים יפורסמו כאן בקרוב, עם מקורות מאומתים ובלי ז׳רגון."
@@ -44,17 +52,8 @@ export default async function KnowledgePage() {
           />
         </div>
       ) : (
-        <div className="mt-10 grid gap-6 sm:grid-cols-2">
-          {articles.map((article) => (
-            <Card key={article.slug}>
-              <CmsImage image={article.coverImage} alt={article.title} className="mb-4 aspect-[4/3] rounded-card" />
-              <h2 className="text-h3 font-serif font-normal text-ink">{article.title}</h2>
-              <p className="mt-2 text-ink/80">{article.excerpt}</p>
-              <Button href={`/knowledge/${article.slug}`} variant="ghost" className="mt-4 inline-block">
-                לקריאת המאמר ←
-              </Button>
-            </Card>
-          ))}
+        <div className="mt-8">
+          <ArticleBrowser articles={articles} />
         </div>
       )}
       </div>

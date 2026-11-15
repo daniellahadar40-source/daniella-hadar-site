@@ -7,16 +7,22 @@ import {
   courseBySlugQuery,
   courseSlugsQuery,
   coursesQuery,
+  faqsQuery,
+  servicesQuery,
+  assistantSettingsQuery,
   siteSettingsQuery,
   testimonialsQuery,
 } from "@/sanity/lib/queries";
 import {
   fallbackArticles,
+  fallbackAssistantSettings,
   fallbackCourses,
+  fallbackFaqs,
+  fallbackServices,
   fallbackSiteSettings,
   fallbackTestimonials,
 } from "./content";
-import type { Article, Course, SiteSettings, Testimonial } from "./types";
+import type { Article, AssistantSettings, Course, Faq, Service, SiteSettings, Testimonial } from "./types";
 
 // Cache/Revalidation: ISR כל שעה כברירת מחדל לתוכן שמגיע מה-CMS, כדי שעדכון
 // תוכן בידי דניאלה יתפרסם באתר בלי צורך בדיפלוי מחדש (ראו סעיף 4 בדרישות M2).
@@ -84,4 +90,27 @@ export async function getSiteSettings(): Promise<SiteSettings> {
   if (!isSanityConfigured) return fallbackSiteSettings;
   const result = await fetchSanity<SiteSettings>(siteSettingsQuery);
   return result ?? fallbackSiteSettings;
+}
+
+export async function getServices(): Promise<Service[]> {
+  if (!isSanityConfigured) return fallbackServices;
+  const result = await fetchSanity<Service[]>(servicesQuery);
+  return result && result.length > 0 ? result : fallbackServices;
+}
+
+export async function getFaqs(): Promise<Faq[]> {
+  if (!isSanityConfigured) return fallbackFaqs;
+  const result = await fetchSanity<Faq[]>(faqsQuery);
+  return result ?? fallbackFaqs;
+}
+
+export async function getAssistantSettings(): Promise<AssistantSettings> {
+  if (!isSanityConfigured) return fallbackAssistantSettings;
+  const result = await fetchSanity<Partial<AssistantSettings>>(assistantSettingsQuery);
+  if (!result) return fallbackAssistantSettings;
+  return {
+    ...fallbackAssistantSettings,
+    ...result,
+    suggestedQuestions: result.suggestedQuestions ?? fallbackAssistantSettings.suggestedQuestions,
+  };
 }

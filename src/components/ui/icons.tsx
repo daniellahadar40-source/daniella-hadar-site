@@ -109,3 +109,21 @@ export function CloseIcon(props: IconProps) {
     </svg>
   );
 }
+
+export function AccessibilityIcon(props: IconProps) {
+  return (
+    <svg {...base} {...props} aria-hidden="true">
+      <circle cx="12" cy="4.5" r="2" />
+      <path d="M5 8.5h14M12 7v13M8 20l4-6 4 6" />
+    </svg>
+  );
+}
+
+export function ChatIcon(props: IconProps) {
+  return (
+    <svg {...base} {...props} aria-hidden="true">
+      <path d="M4.5 5.5h15v10.8H9l-4.5 3v-3Z" />
+      <path d="M8 9.5h8M8 12.5h5" />
+    </svg>
+  );
+}

@@ -1,41 +1,29 @@
-import { getArticles, getCourses, getSiteSettings } from "@/lib/data";
+import { getArticles, getCourses, getFaqs, getServices, getSiteSettings } from "@/lib/data";
+import { SITE_URL } from "@/lib/metadata";
+import JsonLd from "@/components/JsonLd";
 import CmsImage from "@/components/CmsImage";
 import LocalPhoto from "@/components/ui/LocalPhoto";
 import Button from "@/components/ui/Button";
 import Section from "@/components/ui/Section";
 import SectionLabel from "@/components/ui/SectionLabel";
 import Card from "@/components/ui/Card";
-import { LaptopIcon, VideoCallIcon, HandshakeIcon, BookIcon, HeartGuideIcon } from "@/components/ui/icons";
+import { LaptopIcon, VideoCallIcon, HandshakeIcon, BookIcon, HeartGuideIcon, CompassIcon } from "@/components/ui/icons";
+import type { ServiceType } from "@/lib/types";
 
-// שלושת מסלולי הליווי כפי שסוכמו בתוכנית העבודה (סעיף 10) — דיגיטלי עצמאי
-// הוא תמיד המסלול המודגש ביותר מבחינה חזותית באתר.
-const consultationPaths = [
-  {
-    label: "נקודת ההתחלה המומלצת",
-    title: "קורס דיגיטלי עצמאי",
-    description:
-      "לומדים בקצב אישי, מתי שנוח, בליווי חומר כתוב וברור — נקודת ההתחלה המומלצת לרוב המשפחות.",
-    Icon: LaptopIcon,
-  },
-  {
-    label: "מסלול 2",
-    title: "ייעוץ אישי בזום",
-    description: "פגישת ייעוץ אחד-על-אחד מכל מקום בארץ, להתמקדות במצב הספציפי שלכם.",
-    Icon: VideoCallIcon,
-  },
-  {
-    label: "מסלול 3",
-    title: "פגישה פרונטלית",
-    description: "פגישה פנים אל פנים בתיאום מראש, בהתאם לזמינות ולאזור השירות.",
-    Icon: HandshakeIcon,
-  },
-];
+const serviceIcons = {
+  digital: LaptopIcon,
+  zoom: VideoCallIcon,
+  "in-person": HandshakeIcon,
+  other: CompassIcon,
+} satisfies Record<ServiceType, typeof LaptopIcon>;
 
 export default async function HomePage() {
-  const [courses, siteSettings, articles] = await Promise.all([
+  const [courses, siteSettings, articles, services, faqs] = await Promise.all([
     getCourses(),
     getSiteSettings(),
     getArticles(),
+    getServices(),
+    getFaqs(),
   ]);
 
   // "מוכן לאתר" = קורס שאושר לפרסום (פעיל) או שהוכרז רשמית כ"בקרוב". קורס
@@ -44,8 +32,37 @@ export default async function HomePage() {
   // (ראו כללי התוכן המחייבים: "אם שם הקורס אינו סופי... לא להמציא/להציג כחי").
   const mainCourse = courses.find((course) => course.status === "published" || course.status === "coming-soon");
 
+  const servicesStructuredData =
+    services.length > 0
+      ? {
+          "@context": "https://schema.org",
+          "@graph": services.map((service, index) => ({
+            "@type": "Service",
+            "@id": `${SITE_URL.toString()}#service-${index}`,
+            name: service.title,
+            description: service.shortDescription,
+            provider: { "@id": `${SITE_URL.toString()}#person` },
+          })),
+        }
+      : null;
+
+  const faqStructuredData =
+    faqs.length > 0
+      ? {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: faqs.map((faq) => ({
+            "@type": "Question",
+            name: faq.question,
+            acceptedAnswer: { "@type": "Answer", text: faq.answer },
+          })),
+        }
+      : null;
+
   return (
     <>
+      {servicesStructuredData && <JsonLd data={servicesStructuredData} />}
+      {faqStructuredData && <JsonLd data={faqStructuredData} />}
       {/* ===== HERO ===== */}
       <Section className="relative overflow-hidden pt-10 pb-14 sm:pt-16 sm:pb-20">
         <div
@@ -106,9 +123,11 @@ export default async function HomePage() {
           שלושה מסלולים, קצב אחד שלכם
         </h2>
         <div className="mt-12 grid grid-cols-1 md:flex md:flex-wrap">
-          {consultationPaths.map(({ Icon, label, title, description }, index) => (
-            <div
-              key={title}
+          {services.map((service, index) => {
+            const Icon = serviceIcons[service.serviceType] ?? CompassIcon;
+            return (
+              <div
+              key={service.title}
               className={`flex-1 px-6 py-7 text-center md:min-w-[220px] md:px-8 md:py-0 ${
                 index > 0 ? "border-t border-ink/10 md:border-t-0 md:border-s md:border-ink/10" : ""
               }`}
@@ -116,13 +135,16 @@ export default async function HomePage() {
               <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-sage/30 text-ink">
                 <Icon width={24} height={24} />
               </span>
-              <p className="mt-4 text-caption font-bold text-smoked-blue">{label}</p>
-              <h3 className="mt-2 text-h3 font-serif font-normal text-ink">{title}</h3>
+              {service.label && <p className="mt-4 text-caption font-bold text-smoked-blue">{service.label}</p>}
+              <h3 className={`${service.label ? "mt-2" : "mt-4"} text-h3 font-serif font-normal text-ink`}>
+                {service.title}
+              </h3>
               <p className="mx-auto mt-2.5 max-w-[260px] text-[15px] leading-relaxed text-ink/80">
-                {description}
+                {service.shortDescription}
               </p>
             </div>
-          ))}
+            );
+          })}
         </div>
       </Section>
 
@@ -257,6 +279,29 @@ export default async function HomePage() {
           )}
         </div>
       </section>
+
+      {faqs.length > 0 && (
+        <Section ariaLabelledBy="faq-title">
+          <div className="mx-auto max-w-3xl">
+            <h2 id="faq-title" className="text-center text-h2 font-serif font-normal text-ink">
+              שאלות נפוצות
+            </h2>
+            <div className="mt-9 divide-y divide-ink/10 border-y border-ink/10">
+              {faqs.map((faq) => (
+                <details key={faq.question} className="group py-1">
+                  <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-5 py-4 font-semibold text-ink marker:content-none">
+                    <span>{faq.question}</span>
+                    <span aria-hidden="true" className="text-2xl font-light text-smoked-blue transition-transform group-open:rotate-45">
+                      +
+                    </span>
+                  </summary>
+                  <p className="max-w-[70ch] pb-5 leading-relaxed text-ink/80">{faq.answer}</p>
+                </details>
+              ))}
+            </div>
+          </div>
+        </Section>
+      )}
 
       {/* ===== יצירת קשר ===== */}
       <Section tone="blue" ariaLabelledBy="contact-title">

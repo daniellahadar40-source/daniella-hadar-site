@@ -27,6 +27,13 @@ export type ArticleSource = {
   url?: string;
 };
 
+export type RelatedArticle = {
+  slug: string;
+  title: string;
+  excerpt: string;
+  coverImage?: SanityImageSource;
+};
+
 export type Article = {
   slug: string;
   title: string;
@@ -38,6 +45,7 @@ export type Article = {
   publishedAt?: string;
   updatedAt?: string;
   categories?: string[];
+  relatedArticles?: RelatedArticle[];
   seoTitle?: string;
   seoDescription?: string;
 };
@@ -63,4 +71,31 @@ export type SiteSettings = {
   aboutImage?: SanityImageSource;
   aboutText?: PortableTextBlock[];
   socialLinks?: SocialLink[];
+};
+
+export type ServiceType = "digital" | "zoom" | "in-person" | "other";
+
+export type Service = {
+  title: string;
+  label?: string;
+  shortDescription: string;
+  serviceType: ServiceType;
+  audience?: string;
+  duration?: string;
+  priceLabel?: string;
+  bookingUrl?: string;
+};
+
+export type Faq = {
+  question: string;
+  answer: string;
+  category?: string;
+};
+
+export type AssistantSettings = {
+  enabled: boolean;
+  welcomeMessage: string;
+  disclaimer: string;
+  suggestedQuestions: string[];
+  fallbackMessage: string;
 };

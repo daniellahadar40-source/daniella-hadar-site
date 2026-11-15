@@ -60,6 +60,14 @@ export const articleBySlugQuery = groq`
     sources,
     publishedAt,
     updatedAt,
+    "categories": categories[]->title,
+    "relatedArticles": relatedArticles[]->{
+      status,
+      "slug": slug.current,
+      title,
+      excerpt,
+      coverImage
+    }[status == "published"],
     seoTitle,
     seoDescription
   }
@@ -79,3 +87,32 @@ export const testimonialsQuery = groq`
 `;
 
 export const siteSettingsQuery = groq`*[_type == "siteSettings"][0]`;
+
+export const servicesQuery = groq`
+  *[_type == "service" && status == "published"] | order(order asc) {
+    title,
+    label,
+    shortDescription,
+    serviceType,
+    audience,
+    duration,
+    priceLabel,
+    bookingUrl
+  }
+`;
+
+export const faqsQuery = groq`
+  *[_type == "faq" && status == "published"] | order(order asc) {
+    question,
+    answer,
+    category
+  }
+`;
+
+export const assistantSettingsQuery = groq`*[_type == "assistantSettings"][0] {
+  enabled,
+  welcomeMessage,
+  disclaimer,
+  suggestedQuestions,
+  fallbackMessage
+}`;
