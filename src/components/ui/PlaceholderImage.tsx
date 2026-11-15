@@ -21,7 +21,7 @@ export default function PlaceholderImage({ className, label = "תמונה בהמ
         }}
       />
       {!compact && (
-        <span className="relative rounded-full border border-ink/10 bg-cream/80 px-4 py-1.5 text-caption font-semibold text-ink/60">
+        <span className="relative rounded-full border border-ink/10 bg-cream/80 px-4 py-1.5 text-caption font-semibold text-ink/80">
           {label}
         </span>
       )}

@@ -58,7 +58,7 @@ export default async function CoursePage({
       <p className="mt-4 text-body-lg text-ink/80">{course.shortDescription}</p>
 
       {course.fullDescription && (
-        <div className="prose prose-neutral mt-6 max-w-none text-ink/90">
+        <div className="prose mt-6 max-w-none text-ink/90">
           <PortableText value={course.fullDescription} />
         </div>
       )}
