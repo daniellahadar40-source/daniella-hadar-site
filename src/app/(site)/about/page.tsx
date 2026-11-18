@@ -82,7 +82,7 @@ export default async function AboutPage() {
           </p>
           <div className="mt-6">
             <Button href="/contact" variant="inverse">
-              יצירת קשר
+              ליצירת קשר
             </Button>
           </div>
         </section>

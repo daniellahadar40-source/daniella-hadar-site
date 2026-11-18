@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { getArticles, getSiteSettings } from "@/lib/data";
 import { createPageMetadata } from "@/lib/metadata";
-import Button from "@/components/ui/Button";
 import EmptyState from "@/components/ui/EmptyState";
 import PageHeader from "@/components/ui/PageHeader";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import ArticleBrowser from "@/components/knowledge/ArticleBrowser";
+import ContactActions from "@/components/ContactActions";
 
 export async function generateMetadata(): Promise<Metadata> {
   const articles = await getArticles();
@@ -36,18 +36,7 @@ export default async function KnowledgePage() {
             title="מרכז הידע בבנייה"
             description="המאמרים הראשונים יפורסמו כאן בקרוב, עם מקורות מאומתים ובלי ז׳רגון."
             action={
-              <div className="flex flex-wrap justify-center gap-3">
-                {siteSettings.phone && (
-                  <Button href={`tel:${siteSettings.phone}`} variant="ghost">
-                    התקשרו
-                  </Button>
-                )}
-                {siteSettings.email && (
-                  <Button href={`mailto:${siteSettings.email}`} variant="ghost">
-                    שלחו מייל
-                  </Button>
-                )}
-              </div>
+              <ContactActions phone={siteSettings.phone} email={siteSettings.email} centered />
             }
           />
         </div>

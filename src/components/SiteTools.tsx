@@ -28,6 +28,7 @@ function AccessibilityPanel({ onClose }: { onClose: () => void }) {
   const [contrast, setContrast] = useState(false);
   const [underlineLinks, setUnderlineLinks] = useState(false);
   const [reduceMotion, setReduceMotion] = useState(false);
+  const [preferencesLoaded, setPreferencesLoaded] = useState(false);
   const firstControlRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -54,16 +55,18 @@ function AccessibilityPanel({ onClose }: { onClose: () => void }) {
         window.localStorage.removeItem(STORAGE_KEY);
       }
     }
+    setPreferencesLoaded(true);
     firstControlRef.current?.focus();
   }, []);
 
   useEffect(() => {
+    if (!preferencesLoaded) return;
     applyAccessibilityPreferences(textSize, contrast, underlineLinks, reduceMotion);
     window.localStorage.setItem(
       STORAGE_KEY,
       JSON.stringify({ textSize, contrast, underlineLinks, reduceMotion }),
     );
-  }, [textSize, contrast, underlineLinks, reduceMotion]);
+  }, [preferencesLoaded, textSize, contrast, underlineLinks, reduceMotion]);
 
   const reset = () => {
     setTextSize("default");
@@ -76,6 +79,8 @@ function AccessibilityPanel({ onClose }: { onClose: () => void }) {
     <section
       id="accessibility-panel"
       className="site-tool-panel"
+      role="dialog"
+      aria-modal="false"
       aria-labelledby="accessibility-panel-title"
       onKeyDown={(event) => event.key === "Escape" && onClose()}
     >
@@ -208,6 +213,8 @@ function NavigationAssistant({ settings, onClose }: { settings: AssistantSetting
     <section
       id="assistant-panel"
       className="site-tool-panel site-tool-panel--assistant"
+      role="dialog"
+      aria-modal="false"
       aria-labelledby="assistant-panel-title"
       onKeyDown={(event) => event.key === "Escape" && onClose()}
     >
@@ -272,33 +279,56 @@ function NavigationAssistant({ settings, onClose }: { settings: AssistantSetting
 
 export default function SiteTools({ assistantSettings }: { assistantSettings: AssistantSettings }) {
   const [activePanel, setActivePanel] = useState<"accessibility" | "assistant" | null>(null);
+  const accessibilityButtonRef = useRef<HTMLButtonElement>(null);
+  const assistantButtonRef = useRef<HTMLButtonElement>(null);
+
+  const closePanel = () => {
+    const panelToRestore = activePanel;
+    setActivePanel(null);
+    requestAnimationFrame(() => {
+      if (panelToRestore === "assistant") assistantButtonRef.current?.focus();
+      if (panelToRestore === "accessibility") accessibilityButtonRef.current?.focus();
+    });
+  };
+
+  const togglePanel = (panel: "accessibility" | "assistant") => {
+    if (activePanel === panel) {
+      closePanel();
+      return;
+    }
+    setActivePanel(panel);
+  };
 
   return (
     <aside className="site-tools" data-open={activePanel ?? "none"} aria-label="כלי עזר באתר">
-      {activePanel === "accessibility" && <AccessibilityPanel onClose={() => setActivePanel(null)} />}
+      {activePanel === "accessibility" && <AccessibilityPanel onClose={closePanel} />}
       {activePanel === "assistant" && assistantSettings.enabled && (
-        <NavigationAssistant settings={assistantSettings} onClose={() => setActivePanel(null)} />
+        <NavigationAssistant settings={assistantSettings} onClose={closePanel} />
       )}
 
       <div className="site-tools__actions" role="group" aria-label="פתיחת כלי עזר">
         {assistantSettings.enabled && (
           <button
+            ref={assistantButtonRef}
             type="button"
             className="site-tool-launcher site-tool-launcher--assistant"
+            aria-haspopup="dialog"
             aria-expanded={activePanel === "assistant"}
             aria-controls="assistant-panel"
-            onClick={() => setActivePanel((panel) => (panel === "assistant" ? null : "assistant"))}
+            onClick={() => togglePanel("assistant")}
           >
             <ChatIcon width={21} height={21} />
             <span>עוזר ניווט</span>
           </button>
         )}
         <button
+          ref={accessibilityButtonRef}
           type="button"
           className="site-tool-launcher"
+          aria-haspopup="dialog"
           aria-expanded={activePanel === "accessibility"}
           aria-controls="accessibility-panel"
-          onClick={() => setActivePanel((panel) => (panel === "accessibility" ? null : "accessibility"))}
+          onClick={() => togglePanel("accessibility")}
         >
           <AccessibilityIcon width={21} height={21} />
           <span>נגישות</span>

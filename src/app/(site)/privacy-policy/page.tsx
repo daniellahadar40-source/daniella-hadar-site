@@ -11,8 +11,12 @@ export const metadata: Metadata = createPageMetadata({
 export default function PrivacyPolicyPage() {
   return (
     <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6">
-      <h1 className="text-3xl font-serif font-normal text-ink">מדיניות פרטיות — נוסח זמני</h1>
+      <h1 className="text-3xl font-serif font-normal text-ink">מדיניות פרטיות</h1>
       <div className="prose prose-neutral mt-6 max-w-none text-ink/90">
+        <p className="rounded-card bg-champagne/40 px-4 py-3 text-sm text-ink">
+          זהו נוסח עבודה המתאר את מצב האתר המקומי הנוכחי. הוא נשאר מחוץ לאינדוקס
+          עד לאישור נוסח סופי לפני ההשקה.
+        </p>
         <p>
           האתר אינו כולל כרגע טופס יצירת קשר, טופס הרשמה לעדכונים, מערכת תשלום
           או כלי מדידה ופרסום. ניתן לפנות לדניאלה באמצעות קישורי הטלפון והמייל
@@ -34,14 +38,11 @@ export default function PrivacyPolicyPage() {
           ואינו נשלח לאתר.
         </p>
         <p>
-          אם יתווספו בעתיד טופס, רשימת תפוצה, כלי מדידה, אפשרות תשלום או חיבור
-          של עוזר הניווט לספק AI חיצוני,
+          קיימת בקוד תשתית תצוגה מקדימה לרשימת תפוצה, אך היא כבויה, אינה מוצגת
+          לגולשים ואינה אוספת או שולחת כתובות אימייל. אם יתווספו בעתיד טופס,
+          רשימת תפוצה פעילה, כלי מדידה, אפשרות תשלום או חיבור של עוזר הניווט לספק AI חיצוני,
           המדיניות תעודכן לפני הפעלתם ותפרט אילו נתונים נאספים, לאיזו מטרה
           ולאילו ספקים הם מועברים.
-        </p>
-        <p className="border-t border-ink/10 pt-5 text-sm text-ink/80">
-          זהו נוסח זמני המתאר את מצב האתר הנוכחי. לפני השקה נדרש אישור של נוסח
-          סופי ומחייב בהתאם לדין ולשירותים שיופעלו בפועל.
         </p>
       </div>
     </div>

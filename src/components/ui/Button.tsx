@@ -29,21 +29,43 @@ type AsButton = CommonProps &
 
 export default function Button(props: AsLink | AsButton) {
   const { variant = "primary", className, children } = props;
-  const classes = [variantClasses[variant], className].filter(Boolean).join(" ");
+  const classes = [
+    "inline-flex min-h-11 items-center justify-center text-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-smoked-blue disabled:cursor-not-allowed disabled:opacity-55",
+    variantClasses[variant],
+    className,
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   if (props.href) {
-    const { href, variant: _variant, className: _className, children: _children, ...rest } = props;
+    const href = props.href;
+    const linkProps = { ...props } as Partial<AsLink>;
+    delete linkProps.href;
+    delete linkProps.variant;
+    delete linkProps.className;
+    delete linkProps.children;
+
+    if (href.startsWith("/") || href.startsWith("#")) {
+      return (
+        <Link href={href} className={classes} {...linkProps}>
+          {children}
+        </Link>
+      );
+    }
+
     return (
-      <Link href={href} className={classes} {...rest}>
+      <a href={href} className={classes} {...linkProps}>
         {children}
-      </Link>
+      </a>
     );
   }
 
-  const { variant: _variant, className: _className, children: _children, href: _href, ...rest } =
-    props as AsButton;
+  const buttonProps = { ...props } as Partial<AsButton>;
+  delete buttonProps.variant;
+  delete buttonProps.className;
+  delete buttonProps.children;
   return (
-    <button className={classes} {...rest}>
+    <button type="button" className={classes} {...buttonProps}>
       {children}
     </button>
   );

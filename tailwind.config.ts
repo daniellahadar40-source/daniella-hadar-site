@@ -11,6 +11,7 @@ const config: Config = {
         sage: "#A7BAAC",
         champagne: "#E3D5BE",
         ink: "#293A43",
+        terracotta: "#C2814F",
       },
       fontFamily: {
         assistant: ["var(--font-assistant)", "sans-serif"],

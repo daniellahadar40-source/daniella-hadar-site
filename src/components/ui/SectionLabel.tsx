@@ -9,9 +9,9 @@ export default function SectionLabel({ children, centered }: Props) {
   if (centered) {
     return (
       <p className="flex items-center justify-center gap-3.5 text-caption font-bold tracking-wide text-smoked-blue">
-        <span className="h-px w-7 bg-smoked-blue/35" aria-hidden="true" />
+        <span className="h-px w-7 bg-terracotta/60" aria-hidden="true" />
         {children}
-        <span className="h-px w-7 bg-smoked-blue/35" aria-hidden="true" />
+        <span className="h-px w-7 bg-terracotta/60" aria-hidden="true" />
       </p>
     );
   }

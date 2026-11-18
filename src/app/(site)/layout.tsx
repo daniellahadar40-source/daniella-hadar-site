@@ -32,6 +32,15 @@ export const metadata: Metadata = {
     default: `${SITE_NAME} | מיצוי זכויות רפואיות`,
     template: `%s | ${SITE_NAME}`,
   },
+  ...(process.env.VERCEL_ENV === "preview"
+    ? {
+        robots: {
+          index: false,
+          follow: false,
+          nocache: true,
+        },
+      }
+    : {}),
 };
 
 export default async function RootLayout({

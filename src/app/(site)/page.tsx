@@ -4,6 +4,7 @@ import JsonLd from "@/components/JsonLd";
 import CmsImage from "@/components/CmsImage";
 import LocalPhoto from "@/components/ui/LocalPhoto";
 import Button from "@/components/ui/Button";
+import ContactActions from "@/components/ContactActions";
 import Section from "@/components/ui/Section";
 import SectionLabel from "@/components/ui/SectionLabel";
 import Card from "@/components/ui/Card";
@@ -100,16 +101,16 @@ export default async function HomePage() {
             <h1 className="text-display font-serif font-normal leading-tight text-ink sm:text-display-lg lg:text-display-xl">
               ידע מקצועי. ליווי אנושי.
               <br />
-              יותר <span className="border-b-[3px] border-sage pb-0.5">בהירות</span> בדרך.
+              יותר <span className="border-b-[3px] border-terracotta pb-0.5">בהירות</span> בדרך.
             </h1>
             <p className="mt-6 max-w-md text-body-lg text-ink/85">
               עובדת סוציאלית המלווה משפחות ויחידים מול ביטוח לאומי והוועדות
               הרפואיות — בידע מקצועי, בבהירות ובלי בירוקרטיה מיותרת.
             </p>
             <div className="mt-8 flex flex-wrap gap-3.5">
-              <Button href="/courses">לצפייה בקורסים</Button>
-              <Button href="/about" variant="secondary">
-                להכיר את דניאלה
+              <Button href="/contact">ליצירת קשר</Button>
+              <Button href="/courses" variant="secondary">
+                לצפייה בקורסים
               </Button>
             </div>
           </div>
@@ -132,10 +133,10 @@ export default async function HomePage() {
                 index > 0 ? "border-t border-ink/10 md:border-t-0 md:border-s md:border-ink/10" : ""
               }`}
             >
-              <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-sage/30 text-ink">
+              <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-terracotta/15 text-terracotta">
                 <Icon width={24} height={24} />
               </span>
-              {service.label && <p className="mt-4 text-caption font-bold text-smoked-blue">{service.label}</p>}
+              {service.label && <p className="mt-4 text-caption font-bold text-terracotta">{service.label}</p>}
               <h3 className={`${service.label ? "mt-2" : "mt-4"} text-h3 font-serif font-normal text-ink`}>
                 {service.title}
               </h3>
@@ -153,7 +154,7 @@ export default async function HomePage() {
         <div className="overflow-hidden rounded-card border border-ink/10 bg-white shadow-[0_14px_34px_rgba(41,58,67,0.08)]">
           <div className="flex flex-wrap-reverse items-stretch">
             <div className="flex-1 basis-[420px] p-8 sm:p-12">
-              <span className="inline-block rounded-full bg-champagne/55 px-4.5 py-2.5 text-[13px] font-bold text-ink">
+              <span className="inline-block rounded-full bg-terracotta/15 px-4.5 py-2.5 text-[13px] font-bold text-terracotta">
                 {mainCourse
                   ? mainCourse.status === "coming-soon"
                     ? "הקורס הדיגיטלי המרכזי · בקרוב"
@@ -172,7 +173,7 @@ export default async function HomePage() {
                 {mainCourse ? (
                   <Button href={`/courses/${mainCourse.slug}`}>לפרטי הקורס</Button>
                 ) : (
-                  <Button href="/contact">רוצים לדעת כשהקורס יעלה? דברו איתי</Button>
+                  <Button href="/contact">ליצירת קשר</Button>
                 )}
               </div>
             </div>
@@ -234,27 +235,20 @@ export default async function HomePage() {
 
           {articles.length === 0 ? (
             <div className="mx-auto mt-10 max-w-xl rounded-card bg-white p-9 sm:p-11">
-              <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-champagne/55 text-ink">
+              <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-terracotta/15 text-terracotta">
                 <BookIcon width={24} height={24} />
               </span>
               <p className="mt-4 text-[17px] font-bold text-ink">מרכז הידע בבנייה</p>
               <p className="mt-2.5 text-ink/80">
                 אני עובדת על המאמרים המקצועיים הראשונים, שיעלו כאן ברגע שיהיו
-                מוכנים — בלי ז&apos;רגון, עם מקורות מאומתים. מי שרוצה לדעת כשהם
-                עולים מוזמנת/ה ליצור קשר.
+                מוכנים — בלי ז&apos;רגון, עם מקורות מאומתים.
               </p>
-              <div className="mt-5 flex flex-wrap justify-center gap-3">
-                {siteSettings.phone && (
-                  <Button href={`tel:${siteSettings.phone}`} variant="ghost">
-                    התקשרו
-                  </Button>
-                )}
-                {siteSettings.email && (
-                  <Button href={`mailto:${siteSettings.email}`} variant="ghost">
-                    שלחו מייל
-                  </Button>
-                )}
-              </div>
+              <ContactActions
+                phone={siteSettings.phone}
+                email={siteSettings.email}
+                centered
+                className="mt-5"
+              />
             </div>
           ) : (
             <>
@@ -315,7 +309,7 @@ export default async function HomePage() {
           <p className="mt-3 text-cream/85">אפשר ליצור קשר ישירות בכל שאלה או לקבלת פרטים נוספים.</p>
           <div className="mt-6 flex justify-center">
             <Button href="/contact" variant="inverse">
-              יצירת קשר
+              ליצירת קשר
             </Button>
           </div>
         </div>

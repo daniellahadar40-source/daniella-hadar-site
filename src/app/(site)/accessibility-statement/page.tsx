@@ -13,6 +13,10 @@ export default function AccessibilityStatementPage() {
     <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6">
       <h1 className="text-3xl font-serif font-normal text-ink">הצהרת נגישות</h1>
       <div className="prose prose-neutral mt-6 max-w-none text-ink/90">
+        <p className="rounded-card bg-champagne/40 px-4 py-3 text-sm text-ink">
+          זהו נוסח עבודה. ההצהרה נשארת מחוץ לאינדוקס עד להשלמת הבדיקות ואישור
+          הנוסח הסופי לפני ההשקה.
+        </p>
         <p>
           אתר זה תוכנן ונבנה תוך שאיפה לעמוד בדרישות הנגישות המקובלות. בין
           ההתאמות הקיימות: ניווט במקלדת, קישור דילוג לתוכן הראשי, מבנה כותרות

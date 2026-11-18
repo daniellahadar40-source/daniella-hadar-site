@@ -6,6 +6,7 @@ import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import EmptyState from "@/components/ui/EmptyState";
 import PageHeader from "@/components/ui/PageHeader";
+import ContactActions from "@/components/ContactActions";
 
 export async function generateMetadata(): Promise<Metadata> {
   const courses = await getCourses();
@@ -42,20 +43,9 @@ export default async function CoursesPage() {
         <div className="mt-10">
           <EmptyState
             title="קורסים בדרך"
-            description="הקורסים בהכנה ויתפרסמו כאן בקרוב. בינתיים אפשר ליצור קשר לשיחת היכרות או לשאלה."
+            description="הקורסים בהכנה ויתפרסמו כאן לאחר השלמת התוכן ואישורו."
             action={
-              <div className="flex flex-wrap justify-center gap-3">
-                {siteSettings.phone && (
-                  <Button href={`tel:${siteSettings.phone}`} variant="ghost">
-                    התקשרו
-                  </Button>
-                )}
-                {siteSettings.email && (
-                  <Button href={`mailto:${siteSettings.email}`} variant="ghost">
-                    שלחו מייל
-                  </Button>
-                )}
-              </div>
+              <ContactActions phone={siteSettings.phone} email={siteSettings.email} centered />
             }
           />
         </div>
