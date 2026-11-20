@@ -84,7 +84,7 @@ export default function Header() {
 
         <Link href="/" className="flex shrink-0 flex-col leading-tight text-start" onClick={() => setOpen(false)}>
           <span className="font-serif text-[22px] text-ink">דניאלה הדר</span>
-          <span className="text-xs text-smoked-blue">מיצוי זכויות רפואיות וליווי משפחות</span>
+          <span className="text-xs text-smoked-blue">עובדת סוציאלית קלינית, מיצוי זכויות רפואיות</span>
         </Link>
       </nav>
 

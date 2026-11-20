@@ -93,7 +93,7 @@ export default async function HomePage() {
               }
             />
             <p className="relative z-10 mt-3 text-sm font-bold text-smoked-blue">
-              דניאלה הדר · עובדת סוציאלית, מיצוי זכויות רפואיות
+              דניאלה הדר · עובדת סוציאלית קלינית, מיצוי זכויות רפואיות
             </p>
           </div>
 
@@ -207,20 +207,28 @@ export default async function HomePage() {
 
       {/* ===== מי אני ===== */}
       <Section ariaLabelledBy="about-preview-title">
-        <div className="mx-auto max-w-[460px] text-center md:text-start">
-          <SectionLabel>מי אני</SectionLabel>
-          <h2 id="about-preview-title" className="mt-2.5 text-h2 font-serif font-normal text-ink">
-            עובדת מהשטח, לא רק מהספר
-          </h2>
-          <p className="mt-4 text-body-lg text-ink/85">
-            אני דניאלה הדר, עובדת סוציאלית העוסקת במיצוי זכויות רפואיות ונפשיות.
-            לאורך שנות עבודתי במערכות הציבוריות ליוויתי אנשים ומשפחות בתהליכים
-            מורכבים מול ביטוח לאומי והוועדות הרפואיות.
-          </p>
-          <div className="mt-5">
-            <Button href="/about" variant="ghost">
-              לקריאת הסיפור המלא ←
-            </Button>
+        <div className="grid gap-10 md:grid-cols-[0.85fr_1.15fr] md:items-center">
+          <LocalPhoto
+            src="/images/daniella-portrait-main.jpg"
+            alt="דניאלה הדר, עובדת סוציאלית קלינית למיצוי זכויות רפואיות"
+            className="mx-auto aspect-[4/5] w-full max-w-[340px] rounded-card shadow-lg shadow-ink/15 md:mx-0"
+            sizes="(min-width: 768px) 340px, 70vw"
+          />
+          <div className="mx-auto max-w-[460px] text-center md:mx-0 md:text-start">
+            <SectionLabel>מי אני</SectionLabel>
+            <h2 id="about-preview-title" className="mt-2.5 text-h2 font-serif font-normal text-ink">
+              עובדת מהשטח, לא רק מהספר
+            </h2>
+            <p className="mt-4 text-body-lg text-ink/85">
+              אני דניאלה הדר, עובדת סוציאלית קלינית (MSW) עם 14 שנות ניסיון במיצוי
+              זכויות רפואיות. עבדתי בתוך המערכות הציבוריות, כך שאני מכירה אותן
+              מבפנים — ומסבירה הכול בשפה פשוטה, בלי בירוקרטיה מיותרת.
+            </p>
+            <div className="mt-5">
+              <Button href="/about" variant="ghost">
+                לקריאת הסיפור המלא ←
+              </Button>
+            </div>
           </div>
         </div>
       </Section>

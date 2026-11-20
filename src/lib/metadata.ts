@@ -5,7 +5,7 @@ export const SITE_URL = new URL(
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.daniella-hadar.co.il"
 );
 export const DEFAULT_DESCRIPTION =
-  "ליווי מקצועי של עובדת סוציאלית למיצוי זכויות רפואיות ונפשיות מול ביטוח לאומי, וקורסים דיגיטליים מעשיים.";
+  "ליווי מקצועי של עובדת סוציאלית קלינית למיצוי זכויות רפואיות מול ביטוח לאומי — פגישות, ליווי אישי וקורסים דיגיטליים מעשיים.";
 
 const DEFAULT_OG_IMAGE = {
   url: "/images/hero-documents.png",

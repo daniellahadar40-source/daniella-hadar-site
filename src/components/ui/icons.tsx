@@ -86,6 +86,15 @@ export function MailIcon(props: IconProps) {
   );
 }
 
+export function WhatsAppIcon(props: IconProps) {
+  return (
+    <svg {...base} {...props} aria-hidden="true">
+      <path d="M4 20l1.3-4.2A8 8 0 1 1 8.5 19L4 20Z" />
+      <path d="M9 10.3c0 2.8 2.4 5.2 5.2 5.2.5 0 1-.4 1-.9v-.6c0-.4-.3-.7-.6-.8l-1.5-.4c-.3-.1-.6 0-.8.2l-.3.4a6 6 0 0 1-2.4-2.4l.4-.3c.2-.2.3-.5.2-.8l-.4-1.5c-.1-.3-.4-.6-.8-.6h-.6c-.5 0-.9.5-.9 1Z" />
+    </svg>
+  );
+}
+
 export function PhoneIcon(props: IconProps) {
   return (
     <svg {...base} {...props} aria-hidden="true">

@@ -42,7 +42,7 @@ async function fetchSanity<T>(query: string, params: Record<string, unknown> = {
 export async function getCourses(): Promise<Course[]> {
   if (!isSanityConfigured) return fallbackCourses;
   const result = await fetchSanity<Course[]>(coursesQuery);
-  return result ?? fallbackCourses;
+  return result && result.length > 0 ? result : fallbackCourses;
 }
 
 export async function getCourseBySlug(slug: string): Promise<Course | null> {
@@ -56,7 +56,7 @@ export async function getCourseBySlug(slug: string): Promise<Course | null> {
 export async function getCourseSlugs(): Promise<string[]> {
   if (!isSanityConfigured) return fallbackCourses.map((course) => course.slug);
   const result = await fetchSanity<string[]>(courseSlugsQuery);
-  return result ?? fallbackCourses.map((course) => course.slug);
+  return result && result.length > 0 ? result : fallbackCourses.map((course) => course.slug);
 }
 
 export async function getArticles(): Promise<Article[]> {
@@ -101,7 +101,7 @@ export async function getServices(): Promise<Service[]> {
 export async function getFaqs(): Promise<Faq[]> {
   if (!isSanityConfigured) return fallbackFaqs;
   const result = await fetchSanity<Faq[]>(faqsQuery);
-  return result ?? fallbackFaqs;
+  return result && result.length > 0 ? result : fallbackFaqs;
 }
 
 export async function getAssistantSettings(): Promise<AssistantSettings> {

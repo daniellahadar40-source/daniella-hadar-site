@@ -59,7 +59,7 @@ export default async function RootLayout({
         "@id": personId,
         name: siteSettings.siteName || SITE_NAME,
         url: SITE_URL.toString(),
-        jobTitle: "עובדת סוציאלית בתחום מיצוי זכויות רפואיות",
+        jobTitle: "עובדת סוציאלית קלינית, מיצוי זכויות רפואיות",
         ...(siteSettings.phone ? { telephone: siteSettings.phone } : {}),
         ...(siteSettings.email ? { email: siteSettings.email } : {}),
         ...(sameAs.length > 0 ? { sameAs } : {}),

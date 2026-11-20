@@ -4,10 +4,11 @@ import { getSiteSettings } from "@/lib/data";
 import { createPageMetadata } from "@/lib/metadata";
 import PageHeader from "@/components/ui/PageHeader";
 import Button from "@/components/ui/Button";
+import LocalPhoto from "@/components/ui/LocalPhoto";
 
 export const metadata: Metadata = createPageMetadata({
   title: "אודות",
-  description: "הסיפור המקצועי של דניאלה הדר, עובדת סוציאלית למיצוי זכויות רפואיות.",
+  description: "הסיפור המקצועי של דניאלה הדר, עובדת סוציאלית קלינית למיצוי זכויות רפואיות.",
   path: "/about",
 });
 
@@ -23,27 +24,45 @@ export default async function AboutPage() {
       />
 
       <div className="mx-auto max-w-5xl px-4 py-14 sm:px-6 sm:py-20">
-        <section className="grid gap-8 lg:grid-cols-[0.7fr_1.3fr] lg:gap-16" aria-labelledby="about-story-title">
+        <section aria-labelledby="about-story-title">
           <h2 id="about-story-title" className="text-h2 font-serif font-normal leading-tight text-ink">
             ידע מקצועי שנועד להפוך לדרך ברורה
           </h2>
-          <div className="prose prose-neutral max-w-none text-ink/90">
+          <div className="mt-6 grid gap-8 lg:grid-cols-[0.7fr_1.3fr] lg:gap-16">
+            <LocalPhoto
+              src="/images/daniella-portrait-outdoor.jpg"
+              alt="דניאלה הדר, עובדת סוציאלית קלינית למיצוי זכויות רפואיות"
+              className="aspect-[4/5] w-full max-w-[320px] rounded-card shadow-lg shadow-ink/15"
+              sizes="(min-width: 1024px) 320px, 70vw"
+            />
+            <div className="prose prose-neutral max-w-none text-ink/90">
             {siteSettings.aboutText ? (
               <PortableText value={siteSettings.aboutText} />
             ) : (
               <>
                 <p>
-                  אני דניאלה הדר, עובדת סוציאלית העוסקת במיצוי זכויות רפואיות ונפשיות.
-                  לאורך שנות עבודתי במערכות הציבוריות ליוויתי אנשים ומשפחות בתהליכים
-                  מורכבים מול ביטוח לאומי והוועדות הרפואיות.
+                  אני דניאלה הדר, עובדת סוציאלית קלינית (MSW), עם תואר שני בעבודה
+                  סוציאלית קלינית במגמת ילד ונוער מהאוניברסיטה העברית, ותואר ראשון
+                  מאוניברסיטת אריאל. יש לי 14 שנות ניסיון: ניהול צוותים בבריאות
+                  הנפש, ליווי משפחות בטיפול ביתי, הנחיית קבוצות והרצאות, ותיאום
+                  טיפול ומיצוי זכויות רפואיות מול ביטוח לאומי, משרד הבריאות, משרד
+                  החינוך והרווחה.
                 </p>
                 <p>
-                  הקמתי את הקורסים והליווי הדיגיטלי כדי להנגיש את הידע המקצועי הזה
-                  לכל מי שזקוק לו — בבהירות, ברוגע ובלי לשלם סכומים גבוהים על ייעוץ
-                  שניתן ללמוד באופן עצמאי.
+                  עבדתי יותר מעשור כעובדת סוציאלית בתוך המערכות הציבוריות, כך שאני
+                  מכירה את התסכול, את הפחד ואת התחושה שאתם לבד מול קירות. התחלתי
+                  בליווי משפחות בבית, והמשכתי לטיפול בילדים ובני נוער ולניהול
+                  צוותים בבריאות הנפש.
+                </p>
+                <p>
+                  בדרך ראיתי איך אנשים מוותרים על זכויות רק כי אף אחד לא הסביר להם
+                  איך עושים את זה — ומשום כך התחלתי ללוות ולהעביר קורסים. זו הדרך
+                  שלי להושיט יד, על מנת שתדעו, תבינו ותרגישו בטוחים מול ביטוח לאומי.
+                  גם אני עולה בעצמי, ובעלת רקע בחינוך בלתי פורמלי.
                 </p>
               </>
             )}
+            </div>
           </div>
         </section>
 
