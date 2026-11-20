@@ -5,7 +5,7 @@ import { urlForImage } from "@/sanity/lib/image";
 import PlaceholderImage from "@/components/ui/PlaceholderImage";
 
 type Props = {
-  image?: SanityImageSource;
+  image?: string | SanityImageSource;
   alt: string;
   className?: string;
   sizes?: string;
@@ -35,7 +35,9 @@ export default function CmsImage({
     return <PlaceholderImage className={className} label={placeholderLabel} compact={placeholderCompact} />;
   }
 
-  const url = urlForImage(image).width(1200).fit("max").auto("format").url();
+  // נתיב סטטי (למשל "/images/courses/x.jpg") מוצג ישירות; אובייקט תמונה
+  // מ-Sanity עובר דרך urlForImage כרגיל.
+  const url = typeof image === "string" ? image : urlForImage(image).width(1200).fit("max").auto("format").url();
 
   return (
     <div className={`relative overflow-hidden ${className ?? ""}`}>

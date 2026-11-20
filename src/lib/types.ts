@@ -13,7 +13,9 @@ export type Course = {
   title: string;
   shortDescription: string;
   fullDescription?: PortableTextBlock[];
-  coverImage?: SanityImageSource;
+  // מחרוזת: נתיב תמונה סטטי תחת public/ (קבוע בקוד, לפני חיבור Sanity).
+  // SanityImageSource: תמונה שהועלתה ל-CMS, תוצג דרך urlForImage.
+  coverImage?: string | SanityImageSource;
   audience?: string;
   lessons: Lesson[];
   price?: number;

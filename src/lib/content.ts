@@ -51,6 +51,7 @@ export const fallbackCourses: Course[] = [
     shortDescription:
       "מפת דרכים ברורה לתהליך של נכות רפואית, בשפה פשוטה, מאת עובדת סוציאלית עם עשר שנות ניסיון במיצוי זכויות.",
     audience: "מי שנמצא/ת בתהליך של נכות רפואית, שלו/ה או של קרוב משפחה.",
+    coverImage: "/images/courses/madrich-10-shlabim.jpg",
     price: 47,
     currency: "ILS",
     status: "published",
@@ -83,6 +84,7 @@ export const fallbackCourses: Course[] = [
     shortDescription:
       "קורס וידאו קצר למתלבטים אם מגיעה קצבת נכות, ורוצים להגיש תביעה לבד בלי לשלם עמלות.",
     audience: "מתלבטים אם מגיעה קצבת נכות ורוצים להגיש לבד, בצורה מסודרת.",
+    coverImage: "/images/courses/ksavah-bli-byurokratya.jpg",
     price: 147,
     currency: "ILS",
     status: "published",
@@ -116,6 +118,7 @@ export const fallbackCourses: Course[] = [
     title: "קורס תו נכה",
     shortDescription: "תו נכה בלי מתווכים: איך מוציאים אותו לבד, שלב אחרי שלב.",
     audience: "מי שזכאי/ת לתו נכה ורוצה להגיש בעצמו/ה, בלי לשלם למתווכים.",
+    coverImage: "/images/courses/tav-nechut.jpg",
     status: "coming-soon",
     lessons: [],
     fullDescription: [
@@ -139,6 +142,7 @@ export const fallbackCourses: Course[] = [
     title: "מוכנים לוועדה רפואית",
     shortDescription: "ההגשה מאחוריך. עכשיו הוועדה. בואי נתכונן ביחד.",
     audience: "מבוגרים בתהליך נכות כללית, לפני ועדה רפואית.",
+    coverImage: "/images/courses/mukhanim-levaada.jpg",
     status: "coming-soon",
     lessons: [],
     fullDescription: [
@@ -163,6 +167,7 @@ export const fallbackCourses: Course[] = [
     title: "המדריך המלא להורה: מה מגיע לילד שלך מהמדינה",
     shortDescription: "את מרגישה שמגיע לילד שלך יותר, ולא יודעת איך מגיעים לזה?",
     audience: "הורים לילדים עם צרכים מיוחדים, המתמודדים מול ביטוח לאומי, משרד החינוך ומשרד הבריאות.",
+    coverImage: "/images/courses/madrich-horim.jpg",
     price: 147,
     currency: "ILS",
     status: "coming-soon",
